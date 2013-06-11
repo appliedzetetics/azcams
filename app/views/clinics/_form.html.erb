@@ -1,0 +1,32 @@
+<%= simple_nested_form_for @clinic, :html => { :class => 'form-horizontal' } do |f| %>
+
+	<%= f.input :practitioner_id, :as => :select, :collection => Practitioner.practitioner.account(current_user).map {|a| [a.fullname, a.id]}, :input_html => { :class => "span2" } %>
+	<%= f.input :venue_id, :as => :select, :collection => Venue.account(current_user).map {|a| [a.name, a.id]}, :input_html => { :class => "span2" } %>
+	<%= f.input :effective_from, :as => :date, :input_html => { :class => "span2" } %>
+	<%= f.input :day_of_week, :as => :select, :collection => Clinic::DAYS.invert, :input_html => { :class => "span2" }  %>
+
+	<legend>Slots</legend>
+	<table class="table table-zebrastriped table-condensed">
+		<thead>
+			<th></th>
+			<th>Start time</th>
+			<th>Duration</th>
+			<th>Delete</th>
+		</thead>
+		<tbody>
+			<%= f.simple_fields_for :slots do |s| %>
+				<tr>
+					<td></td>
+					<td><%= s.input :start_time, :required => false, :as => :string, :wrapper => :bootstrapchild, :input_html => { :style => "width:40px; float:left;" } %></td>
+					<td><%= s.input :duration, :required => false, :as => :string, :wrapper => :bootstrapchild, :input_html => { :style => "width:40px;  float:left;" } %></td>
+					<td>
+  					  <%= s.link_to_remove "Delete", :class => "btn btn-danger btn-mini" %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+
+  <%= f.button :submit %>
+<% end %>

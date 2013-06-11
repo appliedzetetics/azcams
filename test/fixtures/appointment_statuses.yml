@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  description: MyString
+  is_dna: false
+  is_cancellation: false
+  is_attended: false
+
+two:
+  description: MyString
+  is_dna: false
+  is_cancellation: false
+  is_attended: false

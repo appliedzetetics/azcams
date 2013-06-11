@@ -1,0 +1,19 @@
+/* RADIO OVERRIDES - display radio buttons in line
+--------------------------------------------------------------------------------------------------*/
+form.formtastic ol > li.radio ol li {
+    margin:0.1em 0.5em 0.5em 0;
+    display: inline-block;
+}
+
+/*
+form.formtastic fieldset.slotrow  ol {
+    margin-left: 25%;
+    background-color: #ffff00;
+}
+*/
+
+form.formtastic fieldset.slotrow {
+    display: inline;
+    float: left;
+    margin-right: 1em;
+}

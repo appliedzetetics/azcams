@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  episode: 
+  practitioner: 
+  appointment_date: 2012-06-17
+  appointment_time: 2012-06-17 21:35:05
+  outcome: MyString
+
+two:
+  episode: 
+  practitioner: 
+  appointment_date: 2012-06-17
+  appointment_time: 2012-06-17 21:35:05
+  outcome: MyString

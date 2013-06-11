@@ -1,0 +1,19 @@
+
+*** These modified files were found in JOE when it aborted on Wed Aug 22 15:24:24 2012
+*** JOE was aborted by UNIX signal 15
+
+*** File '(Unnamed)'
+todo
+todo
+
+*** File 'todo'
+clinics/add/edit
+	- allow blank slots to be ignored
+	- allow non-admin user to manage own clinics/slots
+
+
+*** These modified files were found in JOE when it aborted on Wed Aug 22 15:24:24 2012
+*** JOE was aborted by UNIX signal 15
+
+*** File '(Unnamed)'
+app/views/allocations/index.html.erb

@@ -1,0 +1,15 @@
+<%= simple_form_for(@message) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :episode %>
+    <%= f.association :template %>
+    <%= f.association :message_type %>
+    <%= f.association :user %>
+    <%= f.input :completed %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

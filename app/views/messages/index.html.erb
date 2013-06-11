@@ -1,0 +1,42 @@
+<h1>Message queue <small>pending messages for <%= current_user.fullname %></small></h1>
+  <div class="alert alert-info">
+    <legend>Not yet implemented</legend>
+    <p>This is the message management part of azcams. Here, pending (and actioned) messages will be listed.
+    When certain things happen in azcams, such as a client being marked as not having attended for an
+    appointment, template messages can be generated and queued for sending, by email or letter (there is
+    also a "phone message" option, but you'll have to do those yourself!).</p>
+    <p>When implemented, this page will enable you to send or print queued messages, and review the status of the queue.</p>
+  </div>
+  
+
+<table class="table striped-table">
+  <thead>
+    <tr>
+      <th width=20%>Client</th>
+      <th width=30%>Template</th>
+      <th width=10%>Type</th>
+      <th width=10%>Queued</th>
+      <th width=10%>Completed</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  
+<% @messages.each do |message| %>
+  <tbody>
+    <tr>
+      <td><%= message.episode.client.file_no %></td>
+      <td><%= message.template %></td>
+      <td><%= message.message_type.description %></td>
+      <td><%= message.created_at.strftime("%d/%m/%y&nbsp;%H:%M").html_safe %></td>
+      
+      <td><%= message.completed || '-' %></td>
+      <td><%= link_to 'Show', message, :class => "btn btn-mini" %></td>
+    </tr>
+    
+  </tbody>
+<% end %>
+</table>
+
+<br />

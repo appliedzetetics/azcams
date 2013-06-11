@@ -1,0 +1,9 @@
+<%= simple_form_for @venue, :html => { :class => 'form-horizontal' } do |f| %>
+
+  <%= f.input :account_id, :as => :hidden %>
+  <%= f.input :name %>
+  <%= f.input :address, :as => :text, :input_html => { :rows => 4, :cols => 40 } %>
+  <%= f.input :postcode, :input_html => { :class => "span1" } %>
+
+  <%= f.button :submit, :as => :input %>
+<% end %>

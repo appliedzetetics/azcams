@@ -1,0 +1,30 @@
+<tr>
+  <td><%= client.file_no %></td>
+  <td><%= client.surname %></td>
+  <td><%= client.forename %></td>
+  <td><%= client.dob %></td>
+  <td><%= client.status %></td>
+  <% if @list %>
+	  <td><%= client.waitstartdate %></td>
+	<% end %>
+  <td>
+    <%= link_to t('.show', :default => t("helpers.links.show")),
+                client_path(client), :class => 'btn btn-mini' %>
+	</td>
+	<td>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_client_path(client), :class => 'btn btn-mini' %>
+
+	</td>
+	<td>
+		<% if client.has_openreferral? && !client.is_allocated? %>
+			<%= link_to t('.allocate', :default => t("helpers.links.allocate")),
+									new_allocation_path(:episode_id => client.latestepisode), :class => 'btn btn-mini' %>
+		<% end %>
+		<% if client.is_allocated? && client.latestepisode.is_allocated_no_appointment? %>
+			<%= link_to "Make appt",
+									new_appointment_path(:allocation_id_new => client.latestepisode.allocations.last), :class => 'btn btn-mini' %>
+		<% end %>
+  </td>
+
+</tr>

@@ -1,0 +1,16 @@
+<tr>
+  <td><%= freeslots.slot.clinic.practitioner.fullname %></td>
+  <td><%= freeslots.appointment_date %></td>
+  <td><%= freeslots.slot.start_time %></td>
+  <td><%= freeslots.slot.clinic.venue.name %></td>
+  <td>
+    <%= link_to "<i class=\"icon-play\"></i>".html_safe, appointments_path(
+      :slot => freeslots.slot,
+      :allocation => freeslots.allocation,
+      :appointment_date => freeslots.appointment_date),
+      :class => 'btn btn-mini',
+      :method => :post
+    %>
+  </td>
+
+</tr>

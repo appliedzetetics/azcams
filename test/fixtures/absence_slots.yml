@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  absence: 
+  time_from: 2012-07-08 21:08:56
+  time_to: 2012-07-08 21:08:56
+
+two:
+  absence: 
+  time_from: 2012-07-08 21:08:56
+  time_to: 2012-07-08 21:08:56

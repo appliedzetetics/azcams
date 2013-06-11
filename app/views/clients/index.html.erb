@@ -1,0 +1,40 @@
+<%- model_class = Client -%>
+<div class="page-header">
+  <h1>
+    <%=t '.title', :default => model_class.model_name.human.pluralize %>
+    <small> in <%= @ordertag %></small>
+		<%= link_to t('.new_client', :default => t("helpers.links.new_referral")),
+			new_client_path(), :class => 'btn'
+		%>
+
+   </h1>
+</div>
+
+<%= form_tag(:clients, :method => "get", :class=>"form-inline" ) do %>
+	<%= label_tag(:q, 'Search for surname:') %>
+	<%= text_field_tag(:q, params[:q], { :onchange => "(list.selectedIndex=0)" } ) %>
+	or show waiting list:
+	<%= select_tag :list,
+				options_from_collection_for_select(AllocationType.all, :id, :description, params[:list]),
+				{ :include_blank => true, :class => "span2", :onchange => "submit()" } %>
+	<%= submit_tag("Submit", :class => 'btn-primary') %>
+<% end %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:file_no) %></th>
+      <th>Client name</th>
+      <th>Date of birth</th>
+			<th>Status</th>
+      <% if @list %>
+	<th>Waiting since</th>
+      <% end %>
+      <th colspan=4><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @clients %>
+  </tbody>
+</table>
+
+<%= will_paginate @clients %>

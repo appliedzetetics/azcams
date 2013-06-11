@@ -1,0 +1,32 @@
+// Place all the styles related to the Episodes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+td.condition {
+/*  border: 2px inset; */
+}
+
+
+tr.referral {
+  border-top: 2px solid #000000;
+  border-left: 2px solid #000000;
+  border-right: 2px solid #000000;
+}
+
+tr.referral-btm {
+  border-bottom: 2px solid #000000;
+  border-left: 2px solid #000000;
+  border-right: 2px solid #000000;
+}
+
+td.referral {
+  font-size: 120%;
+}
+
+/*
+tr.referral {
+  background-color: #f0f0ff;
+  padding-left: 20px;
+}
+
+*/

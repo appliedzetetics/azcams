@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Episode:</b>
+  <%= @assessment.episode %>
+</p>
+
+<p>
+  <b>Practitioner:</b>
+  <%= @assessment.practitioner %>
+</p>
+
+<p>
+  <b>Appointment date:</b>
+  <%= @assessment.appointment_date %>
+</p>
+
+<p>
+  <b>Appointment time:</b>
+  <%= @assessment.appointment_time %>
+</p>
+
+<p>
+  <b>Outcome:</b>
+  <%= @assessment.outcome %>
+</p>
+
+
+<%= link_to 'Edit', edit_assessment_path(@assessment) %> |
+<%= link_to 'Back', assessments_path %>

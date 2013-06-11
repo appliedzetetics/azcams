@@ -1,0 +1,19 @@
+<tr>
+  <td><%= appointment.appointment_date %> <%= appointment.appointment_time %></td>
+  <td><%= appointment.allocation_type %></td>
+  <td><%= appointment.allocation.practitioner.fullname %></td>
+  <td><%= appointment.status %></td>
+  <td><%= appointment.outcome %></td>
+  <td><%= link_to t('.show', :default => t("helpers.links.show")),
+                      appointment_path(appointment), :class => 'btn btn-mini' %>
+  </td>
+  <td><%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_appointment_path(appointment), :class => 'btn btn-mini' %>
+  </td>
+  <td><%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      appointment_path(appointment),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %>
+  </td>
+</tr>

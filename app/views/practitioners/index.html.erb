@@ -1,0 +1,37 @@
+<h1>Listing practitioners</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th>Surname</th>
+    <th>Forename</th>
+    <th>Title</th>
+    <th>Honorifics</th>
+    <th>Telephone</th>
+    <th>Practitioner type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @practitioners.each do |practitioner| %>
+  <tr>
+    <td><%= practitioner.surname %></td>
+    <td><%= practitioner.forename %></td>
+    <td><%= practitioner.title %></td>
+    <td><%= practitioner.honorifics %></td>
+    <td><%= practitioner.telephone %></td>
+    <td>
+      <% practitioner.practitioner_types.each do |t| %>
+	<%= t.description %></br>
+      <% end %>
+    </td>
+    <td><%= link_to 'Show', practitioner %></td>
+    <td><%= link_to 'Edit', edit_practitioner_path(practitioner) %></td>
+    <td><%= link_to 'Destroy', practitioner, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Practitioner', new_practitioner_path %>

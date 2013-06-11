@@ -1,0 +1,10 @@
+<tr>
+  <td><%= appointment_status.description %></td>
+  <% appointment_status.attribute_names.grep(/^is_/).each do |a| %>
+    <td><%= booleantick(appointment_status[a]) %></td>
+  <% end %>
+  <td><%= link_to 'Show', appointment_status, :class => "btn btn-mini" %></td>
+  <td><%= link_to 'Edit', edit_appointment_status_path(appointment_status), :class => "btn btn-mini" %></td>
+  <td><%= link_to 'Destroy', appointment_status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+</tr>

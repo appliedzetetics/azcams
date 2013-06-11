@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  episode: 
+  practitioner: 
+  allocation_type: MyString
+
+two:
+  episode: 
+  practitioner: 
+  allocation_type: MyString

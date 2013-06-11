@@ -1,0 +1,34 @@
+<%= simple_form_for(@practitioner) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :surname %>
+    <%= f.input :forename %>
+    <%= f.input :title %>
+    <%= f.input :honorifics %>
+    <%= f.input :telephone %>
+    <= f.association :practitioner_type, :as => :radio_buttons, :label_method => :description, :item_wrapper_class => 'inline' >
+    <H2>Clinic schedule</h2>
+    <table>
+      <%= f.simple_fields_for :clinics, :html => { :class => 'form-horizontal' } do |b| %>
+        <tr valign="bottom">
+          <td>
+            <%= b.input :dayname, :disabled => true, :width => 16, :label => false, :item_wrapper_class => 'inline', :input_html => {:size => 10}%>
+          </td>
+          <td>
+            <%= b.association :venue, :label => false, :item_wrapper_class => 'inline'  %>
+          </td>
+          <%= b.simple_fields_for :slots do |s| %>
+            <td><%= s.input :hours, :label => false, :item_wrapper_class => 'inline',  :input_html => {:style => "width: 20px"} %></td>
+            <td>:</td>
+            <td><%= s.input :minutes, :label => false, :item_wrapper_class => 'inline',  :input_html => {:style => "width: 20px"} %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

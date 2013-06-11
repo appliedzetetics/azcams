@@ -1,0 +1,21 @@
+<%= simple_form_for @appointment, :html => { :class => 'form-horizontal'} do |f| %>
+
+  <div class="form-inputs">
+    <%= f.input :slot_id, :as => :hidden %>
+    <%= f.input :allocation_id, :as => :hidden %>
+
+    <% unless @appointment.id.nil? %>
+      <%= f.association :appointment_status, :as => :select, :collection => AppointmentStatus.all.map { |a| [ a.description, a.id ] }, :include_blank => true %>
+      <%= f.input :outcome %>
+    <% end %>
+
+
+
+  </div>
+
+
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")), :back, :class => 'btn' %>
+  </div>
+<% end %>

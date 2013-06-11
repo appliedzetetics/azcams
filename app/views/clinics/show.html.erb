@@ -1,0 +1,40 @@
+<%- model_class = Clinic -%>
+<div class="page-header">
+  <h1>Clinic</h1>
+</div>
+
+<table class="table">
+	<tbody>
+		<tr>
+			<th width=20%>Practitioner</th>
+			<td><%= @clinic.practitioner.fullname %></td>
+		</tr>
+		<tr>
+			<th>Address</th>
+			<td><%= @clinic.venue.name %></td>
+		</tr>
+		<tr>
+			<th>Day of week</th>
+			<td><%= Clinic::DAYS[@clinic.day_of_week] %></td>
+		</tr>
+	</tbody>
+</table>
+<h2>Slots</h2>
+<table class="table">
+	<thead>
+		<tr>
+			<th width=20%>Start</th>
+			<th>Duration</th>
+		</tr>
+  </thead>
+  <tbody>
+    <%= render @slots %>
+  </tbody>
+</table>
+
+<div class="form-actions">
+  <%= link_to 'Back to clinic list', clinics_path, :class => 'btn'  %>
+	<%= link_to t('.edit', :default => t("helpers.links.edit")),
+							edit_clinic_path, :class => 'btn btn-primary' %>
+
+</div>

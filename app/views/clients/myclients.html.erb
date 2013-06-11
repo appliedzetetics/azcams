@@ -1,0 +1,25 @@
+<%- model_class = Client -%>
+<div class="page-header">
+	<h1>My clients <small>referrals allocated to <%= current_user.fullname %></small></h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:file_no) %></th>
+      <th><%= model_class.human_attribute_name(:surname) %></th>
+      <th><%= model_class.human_attribute_name(:forename) %></th>
+      <th><%= model_class.human_attribute_name(:dob) %></th>
+			<th>Status</th>
+      <% if @list %>
+	<th>Waiting since</th>
+      <% end %>
+      <th colspan=4><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @clients %>
+  </tbody>
+</table>
+
+<%= will_paginate @clients %>

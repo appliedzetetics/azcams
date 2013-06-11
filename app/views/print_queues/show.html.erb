@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @print_queue.user %>
+</p>
+
+<p>
+  <b>Entity:</b>
+  <%= @print_queue.entity %>
+</p>
+
+<p>
+  <b>Entity:</b>
+  <%= @print_queue.entity_id %>
+</p>
+
+<p>
+  <b>Printtemplate:</b>
+  <%= @print_queue.printtemplate %>
+</p>
+
+
+<%= link_to 'Edit', edit_print_queue_path(@print_queue) %> |
+<%= link_to 'Back', print_queues_path %>

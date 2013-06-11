@@ -1,0 +1,6 @@
+<div>
+Send notification via:
+  <%= select_tag :notification,
+    options_for_select(Array[*NOTIFICATIONOPTIONS.collect {|v,i| [v,NOTIFICATIONOPTIONS.index(v)] }]),
+    :include_blank => true %>
+</div>

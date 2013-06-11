@@ -1,0 +1,43 @@
+<div class="page-header">
+  <H1>Client details <small> <%= "#{@client.file_no} #{@client.fullname}" %></small></H1>
+</div>
+
+<table class="table">
+	<tbody>
+		<tr>
+			<th width=20%>Date of birth</th>
+			<td><%= @client.dob %></td>
+		</tr>
+		<tr>
+			<th>Address</th>
+			<td><%= @client.address %></td>
+		</tr>
+		<tr>
+			<th>Postcode</th>
+			<td><%= @client.postcode %></td>
+		</tr>
+		<tr>
+			<th>Phone (H)</th>
+			<td><%= @client.telephone_home %></td>
+		</tr>
+		<tr>
+			<th>Phone (M)</th>
+			<td><%= @client.telephone_mobile %></td>
+		</tr>
+		<tr>
+			<th>Email</th>
+			<td><%= @client.email %></td>
+		</tr>
+		<tr>
+			<th>Notes</th>
+			<td><%= @client.notes %></td>
+		</tr>
+	</tbody>
+</table>
+  <div class="form-actions">
+  <%= link_to 'Back to client list', clients_path, :class => 'btn'  %>
+	<%= link_to t('.edit', :default => t("helpers.links.edit")),
+							edit_client_path, :class => 'btn btn-primary' %>
+
+</div>
+<%= render :partial => "episodes", :locals => { :episodes => @episodes } %>

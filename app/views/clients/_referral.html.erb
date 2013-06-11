@@ -1,0 +1,41 @@
+<tbody>
+  <tr class="referral">
+    <td colspan="5" class="referral">New referral
+	    <% if current_user.account.file_no_per_episode %>
+		    <%= referral.file_no %>
+      <% end %>
+   by <%= referral.referred_by %>
+   on <%= referral.referral_date %></td>
+	  <td>
+		  <%= link_to "<i class=\"icon-pencil\"></i> Edit".html_safe, edit_episode_path(referral), :class => 'btn btn-mini span1' unless referral.closed %>
+	  </td>
+	  <td>
+	    <%  unless referral.closed %>
+	      <% if referral.allocations.count > 0 %>
+    	    <%= link_to "<i class=\"icon-time\"></i> Appt".html_safe, new_appointment_path(:allocation_id_new => referral.allocations.last), :class => 'btn btn-mini span1' %>
+    	  <% else %>
+    	    <%= link_to "<i class=\"icon-plus-sign\"></i> Alloc".html_safe, new_allocation_path(:episode_id => referral), :class => 'btn btn-mini span1' %>
+    	  <% end %>
+    	<% end %>
+    </td>
+	  <td>
+	    <%= link_to "<i class=\"icon-remove-sign\"></i> Close".html_safe, close_episode_path(referral), :class => 'btn btn-mini span1' unless referral.closed %>
+    </td>
+  </tr>
+  <tr class="referral-btm">
+    <td></td>
+    <td>Condition:</td>
+    <td colspan=3 class="condition"><%= referral.presenting_issue %></td>
+	  <td colspan=3"><%= referral.waitingliststatus %></td>
+
+  </tr>
+</tbody>
+<% if !referral.closed %>
+  <% if referral.allocations.count > 0 %>
+    <%= render :collection => referral.allocations, :partial => 'allocation' %>
+  <% else %>
+    <td colspan=6>Not yet allocated</td>
+  <% end %>
+<% else %>
+  <td></td>
+<% end %>

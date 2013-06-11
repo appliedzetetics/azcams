@@ -1,0 +1,10 @@
+<H2>Referral history<small> for <%= "#{@client.fullname}" %></small>
+  <%= link_to t('.add_referral', :default => t("helpers.links.add_referral")),
+						  new_episode_path(:client_id => @client), :class => 'btn' %>
+</H2>
+
+<table class="table table-condensed">
+  <tbody>
+    <%= render :collection => @episodes, :partial => 'referral' %>
+  </tbody>
+</table>

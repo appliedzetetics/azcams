@@ -1,0 +1,35 @@
+<h1>Listing episode_contacts</h1>
+
+<table>
+  <tr>
+    <th>Contacted</th>
+    <th>Episode</th>
+    <th>From client</th>
+    <th>Contact type</th>
+    <th>Contact action</th>
+    <th>User</th>
+    <th>Notes</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @episode_contacts.each do |episode_contact| %>
+  <tr>
+    <td><%= episode_contact.contacted %></td>
+    <td><%= episode_contact.episode %></td>
+    <td><%= episode_contact.from_client %></td>
+    <td><%= episode_contact.contact_type %></td>
+    <td><%= episode_contact.contact_action %></td>
+    <td><%= episode_contact.user %></td>
+    <td><%= episode_contact.notes %></td>
+    <td><%= link_to 'Show', episode_contact %></td>
+    <td><%= link_to 'Edit', edit_episode_contact_path(episode_contact) %></td>
+    <td><%= link_to 'Destroy', episode_contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Episode contact', new_episode_contact_path %>

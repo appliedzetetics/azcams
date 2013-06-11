@@ -1,0 +1,21 @@
+<%= simple_form_for @allocation, :html => { :class => 'form-horizontal' } do |f| %>
+	<%= f.input :episode_id, :as => :hidden, :value => @allocation.episode_id %>
+	<%= f.association :allocation_type,
+		:include_blank => false,
+		:collection => AllocationType.all.map {|a| [a.description, a.id]},
+		:input_html => { :disabled => !params[:allocation_type].nil?, :class => 'span2' }
+	%>
+	<%= f.association :practitioner,
+		:collection => Practitioner.account(current_user).map {|a| [a.fullname, a.id]},
+		:include_blank => false,
+		:input_html => { :class => 'span2' }
+	%>
+	<div class="form-actions">
+  	<%= f.button :submit, "Allocate referral", :class => 'btn btn-primary' %>
+	  <% unless controller.action_name == 'edit' %>
+      <%= f.button :submit, "Allocate and book appointment", :name => :bookappointment, :class => 'btn' %>
+  	<% end %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                episode_path(@allocation.episode), :class => 'btn' %>
+  </div>
+<% end %>

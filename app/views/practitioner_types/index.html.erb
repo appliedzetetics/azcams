@@ -1,0 +1,23 @@
+<h1>Listing practitioner_types</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @practitioner_types.each do |practitioner_type| %>
+  <tr>
+    <td><%= practitioner_type.description %></td>
+    <td><%= link_to 'Show', practitioner_type %></td>
+    <td><%= link_to 'Edit', edit_practitioner_type_path(practitioner_type) %></td>
+    <td><%= link_to 'Destroy', practitioner_type, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Practitioner type', new_practitioner_type_path %>

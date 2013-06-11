@@ -1,0 +1,8 @@
+<div class="page-header">
+  <h1>Appointment <small>for <%= @appointment.client.fullname %> with <%= @appointment.practitioner %></small></h1>
+</div>
+<legend>Update status</legend>
+<%= render 'form' %>
+
+<%= link_to 'Show', @appointment %> |
+<%= link_to 'Back', appointments_path %>

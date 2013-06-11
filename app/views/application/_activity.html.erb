@@ -1,0 +1,5 @@
+<div class="alert alert-info">
+  <% unless flash[:activity].blank? %>
+    <%= "Record recently been/being viewed by " + flash[:activity].split('!').map{ |i| a=Activity.find(i); "#{a.fullname} (#{time_ago_in_words(a.updated_at)}) ago"}.join(', ') %>
+  <% end %>
+</div>

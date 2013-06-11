@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Account:</b>
+  <%= @template.account %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @template.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @template.description %>
+</p>
+
+<p>
+  <b>Filename:</b>
+  <%= @template.filename %>
+</p>
+
+
+<%= link_to 'Edit', edit_template_path(@template) %> |
+<%= link_to 'Back', templates_path %>

@@ -1,0 +1,27 @@
+<%- model_class = Absence -%>
+<div class="page-header">
+  <h1>
+    <%=t '.title', :default => model_class.model_name.human.pluralize %> <small> for <%= current_user.fullname %></small>
+		<%= link_to "Book absence", new_absence_path(), :class => 'btn' %>
+  </h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>From/to</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @absences.each do |absence| %>
+      <tr>
+			  <td><%= [absence.date_from,absence.date_to].join('-') %></td>
+				<td width=5%><%= link_to 'Show', absence, :class => 'btn btn-mini'  %></td>
+				<td width=5%><%= link_to 'Edit', edit_absence_path(absence), :class => 'btn btn-mini'  %></td>
+				<td width=5%><%= link_to 'Destroy', absence, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @absences %>

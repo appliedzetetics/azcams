@@ -1,0 +1,39 @@
+<%= simple_form_for @episode, :html => { :class => 'form-horizontal' } do |f| %>
+
+  <%= f.input :client_id, :as => :hidden %>
+	<%= f.input :file_no,
+	  :disabled => true,
+	  :hint => 'automatically generated',
+	  :input_html => { :class => "span1" } if current_user.account.file_no_per_episode
+	%>
+  <%= f.input :referral_date, :as => :string, :input_html => { :class => "span2" }  %>
+  <%= f.input :referred_by %>
+  <%= f.input :closed, :as => :boolean %>
+  <%= f.input :presenting_issue, :input_html => { :class => "input-xlarge span5", :rows=>5 } %>
+  <div class="row">
+    <div class="span10">
+      <div class="row">
+        <div class="span5">
+          <legend>Venue <small>preference expressed by client</small></legend>
+          <%= f.association :venues, :collection => Venue.account(current_user), :hint => "(use Ctrl-click to select multiple options)"
+ %>
+        </div>
+
+        <div class="span5">
+          <legend>Practitioner <small>preference expressed by client</small></legend>
+          <%= f.association :practitioners,
+            :collection => Practitioner.account(current_user).order(:surname),
+            :label_method => :fullname,
+            :hint => "(use Ctrl-click to select multiple options)"
+          %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= f.button :submit, "Create", :class => 'btn btn-primary' %>
+  <% if !@episode.id %>
+    <%= f.button :submit, "Allocate to practitioner", :name => :allocate, :class => 'btn' %>
+  <% end %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              client_path(@episode.client), :class => 'btn' %>
+<% end %>

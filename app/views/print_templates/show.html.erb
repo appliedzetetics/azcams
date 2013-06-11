@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Account:</b>
+  <%= @print_template.account %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @print_template.description %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @print_template.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_print_template_path(@print_template) %> |
+<%= link_to 'Back', print_templates_path %>

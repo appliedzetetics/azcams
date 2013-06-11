@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  clinics: 
+  start_time: 2012-04-05 19:46:42
+
+two:
+  clinics: 
+  start_time: 2012-04-05 19:46:42

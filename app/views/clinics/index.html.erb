@@ -1,0 +1,41 @@
+<%- model_class = Clinic -%>
+<div class="page-header">
+  <h1>
+    <%=t '.title', :default => model_class.model_name.human.pluralize %>
+		<%= link_to t('.new_clinic', :default => t("helpers.links.new_clinic")),
+			new_clinic_path(), :class => 'btn'
+		%>
+
+   </h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:practitioner) %></th>
+      <th><%= model_class.human_attribute_name(:venue) %></th>
+      <th><%= model_class.human_attribute_name(:day_of_week) %></th>
+      <th colspan=4><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clinics.each do |clinic| %>
+      <tr>
+        <td><%= clinic.practitioner.fullname %></td>
+        <td><%= clinic.venue.name %></td>
+        <td><%= clinic.dayname %></td>
+        <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      clinic_path(clinic), :class => 'btn btn-mini' %>
+				</td>
+				<td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_clinic_path(clinic), :class => 'btn btn-mini' %>
+
+				</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+ <%= will_paginate @clinics %>

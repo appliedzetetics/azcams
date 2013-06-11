@@ -1,0 +1,61 @@
+<h1>Listing temporary_imports</h1>
+
+<table>
+  <tr>
+    <th>File no</th>
+    <th>Forename</th>
+    <th>Surname</th>
+    <th>Dob</th>
+    <th>Phone</th>
+    <th>Address1</th>
+    <th>Address2</th>
+    <th>Town</th>
+    <th>Postcode</th>
+    <th>Referred by</th>
+    <th>Dateref text</th>
+    <th>Referred date</th>
+    <th>Ia counsellor</th>
+    <th>Ia location</th>
+    <th>Ia date</th>
+    <th>Counsellor</th>
+    <th>Location</th>
+    <th>Counselling start date</th>
+    <th>Status</th>
+    <th>Rogue address</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @temporary_imports.each do |temporary_import| %>
+  <tr>
+    <td><%= temporary_import.file_no %></td>
+    <td><%= temporary_import.forename %></td>
+    <td><%= temporary_import.surname %></td>
+    <td><%= temporary_import.dob %></td>
+    <td><%= temporary_import.phone %></td>
+    <td><%= temporary_import.address1 %></td>
+    <td><%= temporary_import.address2 %></td>
+    <td><%= temporary_import.town %></td>
+    <td><%= temporary_import.postcode %></td>
+    <td><%= temporary_import.referred_by %></td>
+    <td><%= temporary_import.dateref_text %></td>
+    <td><%= temporary_import.referred_date %></td>
+    <td><%= temporary_import.ia_counsellor %></td>
+    <td><%= temporary_import.ia_location %></td>
+    <td><%= temporary_import.ia_date %></td>
+    <td><%= temporary_import.counsellor %></td>
+    <td><%= temporary_import.location %></td>
+    <td><%= temporary_import.counselling_start_date %></td>
+    <td><%= temporary_import.status %></td>
+    <td><%= temporary_import.rogue_address %></td>
+    <td><%= link_to 'Show', temporary_import %></td>
+    <td><%= link_to 'Edit', edit_temporary_import_path(temporary_import) %></td>
+    <td><%= link_to 'Destroy', temporary_import, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Temporary import', new_temporary_import_path %>

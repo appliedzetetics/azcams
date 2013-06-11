@@ -1,0 +1,1 @@
+  NOTIFICATIONOPTIONS = ['Email', 'Letter', 'Phone']

@@ -1,0 +1,2 @@
+module AbsenceSlotsHelper
+end

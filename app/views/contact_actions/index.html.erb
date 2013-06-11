@@ -1,0 +1,23 @@
+<h1>Listing contact_actions</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contact_actions.each do |contact_action| %>
+  <tr>
+    <td><%= contact_action.description %></td>
+    <td><%= link_to 'Show', contact_action %></td>
+    <td><%= link_to 'Edit', edit_contact_action_path(contact_action) %></td>
+    <td><%= link_to 'Destroy', contact_action, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Contact action', new_contact_action_path %>

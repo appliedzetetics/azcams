@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  description: MyString
+  is_email: false
+  is_printable: false
+  is_phone: false
+
+two:
+  description: MyString
+  is_email: false
+  is_printable: false
+  is_phone: false

@@ -1,0 +1,20 @@
+<div class="search">
+  <%= form_tag(new_appointment_path, :method => "get", :class => "form-vertical") do %>
+    <%= hidden_field_tag :allocation_id_new, params[:allocation_id_new] %>
+	  <%= label_tag(:q, 'Practitioner:') %>
+	  <%= select_tag :practitioner,
+				  options_from_collection_for_select(
+				    Practitioner.account(current_user), :id, :fullname, params[:practitioner]),
+				    { :include_blank => true, :multiple => true }
+    %>
+	  <%= label_tag(:q, 'Venue:') %>
+	  <%= select_tag :venue,
+				  options_from_collection_for_select(
+				    Venue.account(current_user), :id, :name, params[:venue]),
+				    { :include_blank => true, :multiple => true }
+    %>
+    <div class="form-controls">
+  	  <%= submit_tag("Search", :class => 'btn-primary') %>
+  	</div>
+  <% end %>
+</div>

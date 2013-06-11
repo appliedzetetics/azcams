@@ -1,0 +1,13 @@
+<%= semantic_form_for @absence do |f| %>
+  <%= f.semantic_errors %>
+
+  <%= f.inputs do %>
+    <%= f.input :practitioner %>
+    <%= f.input :date_from %>
+    <%= f.input :date_to %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>

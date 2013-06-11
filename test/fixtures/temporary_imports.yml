@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  file_no: MyString
+  forename: MyString
+  surname: MyString
+  dob: 2012-06-17
+  phone: MyString
+  address1: MyString
+  address2: MyString
+  town: MyString
+  postcode: MyString
+  referred_by: MyString
+  dateref_text: MyString
+  referred_date: 2012-06-17
+  ia_counsellor: MyString
+  ia_location: MyString
+  ia_date: 2012-06-17
+  counsellor: MyString
+  location: MyString
+  counselling_start_date: 2012-06-17
+  status: MyString
+  rogue_address: MyString
+
+two:
+  file_no: MyString
+  forename: MyString
+  surname: MyString
+  dob: 2012-06-17
+  phone: MyString
+  address1: MyString
+  address2: MyString
+  town: MyString
+  postcode: MyString
+  referred_by: MyString
+  dateref_text: MyString
+  referred_date: 2012-06-17
+  ia_counsellor: MyString
+  ia_location: MyString
+  ia_date: 2012-06-17
+  counsellor: MyString
+  location: MyString
+  counselling_start_date: 2012-06-17
+  status: MyString
+  rogue_address: MyString

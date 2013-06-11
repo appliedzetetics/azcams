@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Absence:</b>
+  <%= @absence_slot.absence %>
+</p>
+
+<p>
+  <b>Time from:</b>
+  <%= @absence_slot.time_from %>
+</p>
+
+<p>
+  <b>Time to:</b>
+  <%= @absence_slot.time_to %>
+</p>
+
+
+<%= link_to 'Edit', edit_absence_slot_path(@absence_slot) %> |
+<%= link_to 'Back', absence_slots_path %>

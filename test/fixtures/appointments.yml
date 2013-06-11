@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  allocation: 
+  appointment_date: 2012-06-18
+  appointment_time: 2012-06-18 22:38:03
+  appointment_status: MyString
+  outcome: MyString
+
+two:
+  allocation: 
+  appointment_date: 2012-06-18
+  appointment_time: 2012-06-18 22:38:03
+  appointment_status: MyString
+  outcome: MyString

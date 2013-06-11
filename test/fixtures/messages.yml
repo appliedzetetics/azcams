@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  episode: 
+  template: 
+  message_type: 
+  user: 
+  completed: false
+
+two:
+  episode: 
+  template: 
+  message_type: 
+  user: 
+  completed: false

@@ -1,0 +1,5 @@
+            <button class="btn btn-primary btn-mini" onclick='$(".collapse").collapse()' data-toggle="collapse" data-target="#email<%= f.id %>">Show</button>
+            <%= f.nil? ? '-' : link_to(f.subject, :controller => "emails", :action => "show", :id => f) %>
+            <div id="email<%= f.id %>" class="collapse">
+              <%= f.message %>
+            </div>

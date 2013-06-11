@@ -1,0 +1,18 @@
+clinics/add/edit
+	- allow blank slots to be ignored
+	- allow non-admin user to manage own clinics/slots
+
+client
+	- make sure referrals, etc are shown in reverse date order
+
+appointments/calendar
+	- space before [small] content in header
+	- inline edit of appointment
+	- default to current month
+
+user accounts
+	- implement user account management for admin users
+
+Edit Profile for user
+	- implement
+

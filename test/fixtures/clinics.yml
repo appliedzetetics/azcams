@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  practitioner: 
+  effective_from: 2012-04-05
+  venue: 
+  day_of_week: 1
+
+two:
+  practitioner: 
+  effective_from: 2012-04-05
+  venue: 
+  day_of_week: 1

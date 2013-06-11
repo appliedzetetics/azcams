@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  contacted: 2012-09-08 13:51:32
+  episode: 
+  from_client: false
+  contact_type: 
+  contact_action: 
+  user: 
+  notes: MyText
+
+two:
+  contacted: 2012-09-08 13:51:32
+  episode: 
+  from_client: false
+  contact_type: 
+  contact_action: 
+  user: 
+  notes: MyText

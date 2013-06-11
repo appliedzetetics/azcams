@@ -1,0 +1,9 @@
+<%= simple_form_for @account, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :adminuser, :label => 'Administrative user', :disabled => true %>
+  <%= f.input :name %>
+  <%= f.input :user_id, :as => :hidden %>
+  <%= f.input :logo %>
+  <%= f.input :bgcolor %>
+
+  <%= f.button:submit, :as => :input %>
+<% end %>

@@ -1,0 +1,69 @@
+<H2>Referral history<small> for <%= "#{@episode.client.fullname}" %></small>
+
+
+<table class="table table-condensed">
+	<thead>
+		<th colspan=2>Event</th>
+		<th>Allocated to/referrer</th>
+		<th>Date/time</th>
+		<th>Status/outcome</th>
+		<th>Actions</th></th>
+	</thead>
+	<tbody>
+	  <tr>
+      <td colspan="2" class="referral">New referral
+    	  <% if current_user.account.file_no_per_episode %>
+				  <%= @episode.file_no %>
+	      <% end %>
+	    </td>
+			<td><%= @episode.referred_by %></td>
+			<td><%= @episode.referral_date %></td>
+			<td><%= @episode.waitingliststatus %></td>
+			<td rowspan=2>
+				<%= link_to "Edit", edit_episode_path(@episode), :class => 'btn btn-mini' %>
+			</td>
+			<td rowspan=2></td>
+	  </tr>
+	  <tr>
+	    <td></td>
+	    <td>Condition:</td>
+	    <td colspan=3 class="condition"><%= @episode.presenting_issue %></td>
+    </tr>
+
+		<% @episode.allocations.each do |l| %>
+			<tr>
+			  <td width=2%></td>
+				<td>Allocated for <%= l.description %></td>
+				<td><%= l.practitioner.fullname %></td>
+				<td><%= l.created_at.strftime("%d/%m/%Y") %></td>
+				<td></td>
+				<td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_allocation_path(l), :class => 'btn btn-mini' if l.appointments.count == 0 %>
+				</td>
+				<td>
+          <%= link_to t('.delete', :default => t("helpers.links.delete")),
+                      allocation_path(l),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' if current_user.admin? %>
+				</td>
+			</tr>
+			<%= render :collection => l.appointments, :partial => 'appointment' %>
+		<% end %>
+		<tr class="episodeactions">
+		  <td colspan=4>
+        <%= link_to t('.make_appointment', :default => t("helpers.links.make_appointment")),
+	                  new_appointment_path(:allocation_id_new => @episode.allocations.last), :class => 'btn' %>
+
+		  </td>
+		</tr>
+	</tbody>
+</table>
+<hr />
+
+
+<div class="form-actions">
+  <%= link_to 'Back to client', client_path(@episode.client), :class => 'btn'  %>
+	<%= link_to "Edit", edit_episode_path(@episode), :class => 'btn btn-primary' %>
+</div>

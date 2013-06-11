@@ -1,0 +1,107 @@
+.calendar table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.calendar td,
+.calendar th {
+#  font-family: "Lucida Grande",arial,helvetica,sans-serif;
+  font-size: 10px;
+  padding: 3px;
+  border: 1px solid #999;
+}
+
+.calendar th {
+  background: #DDD;
+  color: #666;
+  text-align: center;
+  width: 14.2857142857143%;
+}
+
+.calendar td {
+  background: #FFF;
+  color: #777;
+  height: 80px;
+  vertical-align: top;
+  text-align: left;
+  width: 14.2857142857143%;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.calendar .notmonth {
+  color: #CCC;
+}
+
+.calendar .weekend {
+  color: #777;
+  background-color: #dede93
+}
+
+.calendar #month {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.calendar #month a, .calendar #month a:hover {
+  text-decoration: none;
+  padding: 0 10px;
+  color: #999;
+}
+
+.calendar .today {
+#  background-color: #D7F2FF;
+   background-color: #fdfdc4;
+
+}
+
+.calendar ul {
+  margin: 0;
+  margin-top: 5px;
+  padding: 0;
+  list-style: none;
+}
+
+.calendar li {
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  text-align: left;
+}
+
+.calendarday table {
+  border: hidden;
+  width: 100%;
+}
+
+.calendarday td,
+.calendarday th {
+#  font-family: "Lucida Grande",arial,helvetica,sans-serif;
+  font-size: 10px;
+  padding: 1px;
+#  border: 1px solid #999;
+}
+
+.calendarday th {
+  background: #ffffdd;
+  color: #666;
+  text-align: center;
+  padding: 1px;
+}
+
+.calendarday td {
+  background: #fff;
+  color: #777;
+  height: auto;
+  vertical-align: top;
+  text-align: left;
+  font-size: 10px;
+  white-space: nowrap;
+  border: hidden;
+}
+
+.slot td {
+  text-align: left;
+}

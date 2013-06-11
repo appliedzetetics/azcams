@@ -1,0 +1,29 @@
+<h1>Listing templates</h1>
+
+<table>
+  <tr>
+    <th>Account</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Filename</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @templates.each do |template| %>
+  <tr>
+    <td><%= template.account %></td>
+    <td><%= template.name %></td>
+    <td><%= template.description %></td>
+    <td><%= template.filename %></td>
+    <td><%= link_to 'Show', template %></td>
+    <td><%= link_to 'Edit', edit_template_path(template) %></td>
+    <td><%= link_to 'Destroy', template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Template', new_template_path %>

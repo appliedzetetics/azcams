@@ -1,0 +1,15 @@
+<%= simple_form_for(@assessment) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :episode %>
+    <%= f.association :practitioner %>
+    <%= f.input :appointment_date %>
+    <%= f.input :appointment_time %>
+    <%= f.input :outcome %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

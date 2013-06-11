@@ -1,0 +1,14 @@
+<%= simple_form_for @client, :html => { :class => 'form-horizontal' } do |f| %>
+	<%= f.input :file_no, :input_html => { :class => "span1" } unless current_user.account.file_no_per_episode %>
+	<%= f.input :surname %>
+	<%= f.input :forename %>
+	<%= f.input :dob, :label => 'Date of birth', :as => :string, :input_html => { :class => "span2" } %>
+	<%= f.input :address, :as => :text, :input_html => { :rows => 4, :class => "span3" } %>
+	<%= f.input :postcode, :input_html => { :class => "span1" } %>
+	<%= f.input :telephone_home, :input_html => { :class => "span2" }  %>
+	<%= f.input :telephone_mobile, :input_html => { :class => "span2" }  %>
+	<%= f.input :email %>
+	<%= f.input :notes, :as => :text, :input_html => { :rows => 4, :class => 'span4' }  %>
+	<%= f.button :submit, :class => 'btn-primary' %>
+	<%= link_to 'Back', clients_path, :class => "btn" %>
+<% end %>

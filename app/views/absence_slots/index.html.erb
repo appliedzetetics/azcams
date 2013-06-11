@@ -1,0 +1,27 @@
+<h1>Listing absence_slots</h1>
+
+<table>
+  <tr>
+    <th>Absence</th>
+    <th>Time from</th>
+    <th>Time to</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @absence_slots.each do |absence_slot| %>
+  <tr>
+    <td><%= absence_slot.absence %></td>
+    <td><%= absence_slot.time_from %></td>
+    <td><%= absence_slot.time_to %></td>
+    <td><%= link_to 'Show', absence_slot %></td>
+    <td><%= link_to 'Edit', edit_absence_slot_path(absence_slot) %></td>
+    <td><%= link_to 'Destroy', absence_slot, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Absence slot', new_absence_slot_path %>

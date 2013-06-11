@@ -1,0 +1,23 @@
+<h1>Listing episode_statuses</h1>
+
+<table>
+  <tr>
+    <th>Episodestatus</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @episode_statuses.each do |episode_status| %>
+  <tr>
+    <td><%= episode_status.episodestatus %></td>
+    <td><%= link_to 'Show', episode_status %></td>
+    <td><%= link_to 'Edit', edit_episode_status_path(episode_status) %></td>
+    <td><%= link_to 'Destroy', episode_status, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Episode status', new_episode_status_path %>

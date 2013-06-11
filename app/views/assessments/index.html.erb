@@ -1,0 +1,31 @@
+<h1>Listing assessments</h1>
+
+<table>
+  <tr>
+    <th>Episode</th>
+    <th>Practitioner</th>
+    <th>Appointment date</th>
+    <th>Appointment time</th>
+    <th>Outcome</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @assessments.each do |assessment| %>
+  <tr>
+    <td><%= assessment.episode %></td>
+    <td><%= assessment.practitioner %></td>
+    <td><%= assessment.appointment_date %></td>
+    <td><%= assessment.appointment_time %></td>
+    <td><%= assessment.outcome %></td>
+    <td><%= link_to 'Show', assessment %></td>
+    <td><%= link_to 'Edit', edit_assessment_path(assessment) %></td>
+    <td><%= link_to 'Destroy', assessment, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Assessment', new_assessment_path %>

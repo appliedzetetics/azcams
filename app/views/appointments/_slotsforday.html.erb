@@ -1,0 +1,14 @@
+<% clinic.slots.each do |s| %>
+  <tr>
+    <td><%= s.start_time %></td>
+    <td class="slot">
+			<% if s.appointments?(day) %>
+				<% s.appointments(day).each do |a| %>
+					<%= render :partial => "appointments_for_day", :locals => { :appointment => a } %>
+				<% end %>
+			<% else %>
+					<%= render :partial => "appointments_for_day", :locals => { :appointment => s.anticipated_appointment(day) } %>
+			<% end %>
+    </td>
+  </tr>
+<% end %>

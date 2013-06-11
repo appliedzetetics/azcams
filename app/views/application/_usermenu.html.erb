@@ -1,0 +1,19 @@
+<ul class="nav pull-right">
+  <li class="dropdown">
+    <a href="#"
+      class="dropdown-toggle"
+      data-toggle="dropdown">
+        <strong><%= current_user.account.name %></strong>&nbsp;
+        <%= current_user.fullname %>
+      <b class="caret"></b>
+    </a>
+      <ul class="dropdown-menu">
+        <li><%= link_to "My clinics/slots", "/clinics"  %></li>
+        <li><%= link_to "My diary", "/absences"  %></li>
+        <li><%= link_to "My form letters/emails", "/documents"  %></li>
+        <li class="divider"></li>
+        <li><%= link_to "Edit profile", "/users/profile" %></li>
+      </ul>
+    </li>
+  <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+</ul>

@@ -1,0 +1,21 @@
+<table>
+  <tr>
+
+    <th>User</th>
+    <th>Entity</th>
+    <th>Entity</th>
+    <th>Printtemplate</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% index.each do |i| %>
+  <tr>
+    <td><%= i.user %></td>
+    <td><%= i.entity %></td>
+    <td><%= i.entity_id %></td>
+    <td><%= i.printtemplate %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,21 @@
+<div class="page-header"><h1>Listing appointments<small> by date, latest first</small></h1></div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date/time</th>
+      <th>Type</th>
+      <th>Practitioner</th>
+      <th>Status</th>
+      <th>Outcome</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @appointments %>
+  </tbody>
+</table>
+
+<%= will_paginate @appointments %>

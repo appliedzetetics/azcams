@@ -1,0 +1,27 @@
+<h1>Listing print_templates</h1>
+
+<table>
+  <tr>
+    <th>Account</th>
+    <th>Description</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @print_templates.each do |print_template| %>
+  <tr>
+    <td><%= print_template.account %></td>
+    <td><%= print_template.description %></td>
+    <td><%= print_template.content %></td>
+    <td><%= link_to 'Show', print_template %></td>
+    <td><%= link_to 'Edit', edit_print_template_path(print_template) %></td>
+    <td><%= link_to 'Destroy', print_template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Print template', new_print_template_path %>

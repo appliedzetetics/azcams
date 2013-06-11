@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Surname:</b>
+  <%= @practitioner.surname %>
+</p>
+
+<p>
+  <b>Forename:</b>
+  <%= @practitioner.forename %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @practitioner.title %>
+</p>
+
+<p>
+  <b>Honorifics:</b>
+  <%= @practitioner.honorifics %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%= @practitioner.telephone %>
+</p>
+
+<p>
+  <b>Practitioner type:</b>
+  <% @practitioner.practitioner_types.each do |t| %>
+    <%= t.description %></br>
+  <% end %>
+
+</p>
+
+
+<%= link_to 'Edit', edit_practitioner_path(@practitioner) %> |
+<%= link_to 'Back', practitioners_path %>

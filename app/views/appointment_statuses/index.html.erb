@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>Appointment status</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <% @appointment_statuses.first.attribute_names.grep(/^is_/).each do |a| %>
+        <th><%= a.gsub(/^is_/,'').humanize %></th>
+      <% end %>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @appointment_statuses %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Appointment status', new_appointment_status_path %>

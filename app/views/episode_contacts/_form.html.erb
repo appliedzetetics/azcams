@@ -1,0 +1,17 @@
+<%= simple_form_for(@episode_contact) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :contacted %>
+    <%= f.association :episode %>
+    <%= f.input :from_client %>
+    <%= f.association :contact_type %>
+    <%= f.association :contact_action %>
+    <%= f.association :user %>
+    <%= f.input :notes %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

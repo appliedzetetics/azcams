@@ -1,0 +1,17 @@
+<%= simple_form_for(@practitioner) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :surname %>
+    <%= f.input :forename %>
+    <%= f.input :title %>
+    <%= f.input :honorifics %>
+    <%= f.input :telephone %>
+
+    <%= f.association :practitioner_types, :as => :check_boxes, :label_method => :description, :item_wrapper_class => 'inline' %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,40 @@
+<div class="page-header">
+<h1>Appointments calendar <small>for <%= current_user.fullname %></small></h1>
+</div>
+
+<div class="calendar">
+ <h2 id="month">
+    <%= link_to '<i class="icon icon-backward"></i>'.html_safe, { :date => (@date.beginning_of_month-1).strftime("%Y-%m-%d") }, :class => 'btn' %>
+    <%=h @date.strftime("%B %Y") %>
+    <%= link_to '<i class="icon icon-forward"></i>'.html_safe, { :date => (@date.end_of_month+1).strftime("%Y-%m-%d")}, :class => 'btn' %>
+  </h2>  <%= calendar_for @appointments, {
+    :year => @date.year,
+    :month => @date.month,
+    :first_day_of_week => 1,
+    :html_classes => { :out_of_timeframe => 'blank' }} do |t|
+  %>
+    <%= t.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
+    <%= t.day(:day_method => :appointment_date) do |day, tasks| %>
+      <%= day.day %>
+      <div class="calendarday">
+        <table width=100% cellpadding=0 cellspacing=0>
+          <% @practitioner.clinicsforday(day).each do |c| %>
+            <thead>
+              <th colspan=2>
+
+                <%= @practitioner.absent?(day) ? '<i class="icon-ban-circle"></i>&nbsp;'.html_safe : '' %>
+                <%= link_to "#{@practitioner.initials} #{c.venue.name}", dailyplanner_appointments_path(:date=>day.strftime("%Y-%m-%d")) %>
+              </th>
+            </thead>
+            <tbody>
+							<% unless @practitioner.absent?(day) %>
+								<%= render :partial => "slotsforday", :locals => { :clinic => c, :day => day } %>
+							<% end %>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Contacted:</b>
+  <%= @episode_contact.contacted %>
+</p>
+
+<p>
+  <b>Episode:</b>
+  <%= @episode_contact.episode %>
+</p>
+
+<p>
+  <b>From client:</b>
+  <%= @episode_contact.from_client %>
+</p>
+
+<p>
+  <b>Contact type:</b>
+  <%= @episode_contact.contact_type %>
+</p>
+
+<p>
+  <b>Contact action:</b>
+  <%= @episode_contact.contact_action %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @episode_contact.user %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @episode_contact.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_episode_contact_path(@episode_contact) %> |
+<%= link_to 'Back', episode_contacts_path %>
