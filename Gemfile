@@ -44,6 +44,8 @@ gem 'capistrano-deploy', :group => :development, :require => false
 # To use debugger
 # gem 'ruby-debug'
 
+gem 'therubyracer'
+gem 'less-rails-bootstrap'
 gem 'simple_form'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 #gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => '2.1-stable'
