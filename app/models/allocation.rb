@@ -9,7 +9,6 @@ class Allocation < ActiveRecord::Base
   accepts_nested_attributes_for :appointments,
 		:reject_if => lambda { |a| ( a[:appointment_date].to_i == 0) }
 
-
   def lastappointment
     self.appointments.last
   end

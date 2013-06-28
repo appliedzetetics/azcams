@@ -1,0 +1,34 @@
+<tbody>
+  <tr class="referral">
+    <td colspan="1" class="referral">
+	    <% if current_user.account.file_no_per_episode %>
+		    <%= referral.file_no %>
+      <% end %>
+    </td>
+    <td class="referral">
+   		referred by <%= referral.referred_by %>
+   		on <%= referral.referral_date %>
+   	</td>
+   	<td class="referral">
+   		<%= referral.waitingliststatus %>
+   	</td>
+	  <td colspan="4" align="right">
+      <%= link_to "<i class=\"icon-ok-circle\"></i> Allocate".html_safe, new_allocation_path(:episode_id => referral), :class => 'btn btn-mini' %>
+		  <%= link_to "<i class=\"icon-edit\"></i> Edit".html_safe, edit_episode_path(referral), :class => 'btn btn-mini' unless referral.closed %>&nbsp;
+	    <%= link_to "<i class=\"icon-remove-sign\"></i> Close".html_safe, close_episode_path(referral), :class => 'btn btn-mini' unless referral.closed %>
+    </td>
+  </tr>
+  <tr class="referral-btm">
+    <td></td>
+    <td colspan=3 class="condition">Condition: <%= referral.presenting_issue %></td>
+	  <td colspan=3></td>
+
+  </tr>
+  <% if !referral.closed %>
+    <% if referral.allocations.count > 0 %>
+      <%= render :collection => referral.allocations, :partial => 'allocation' %>
+    <% end %>
+  <% else %>
+    <td></td>
+  <% end %>
+</tbody>

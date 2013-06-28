@@ -65,6 +65,7 @@ gem 'mini_magick'
 gem 'rqrcode-rails3'
 gem "odf-report"
 #gem "paperclip", "~> 3.0"
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 #gem "validation_reflection"
 #gem "cocoon"
 #gem "bootstrap-timepicker-rails"

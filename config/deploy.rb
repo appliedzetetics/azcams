@@ -1,6 +1,6 @@
 require 'capistrano/ext/multistage'
 set :stages, ["staging", "production"]
-set :default_stage, "staging"
+set :default_stage, "production"
 
 set :application, "azcams"
 set :repository, "git@github.com:appliedzetetics/azcams.git"
@@ -8,10 +8,7 @@ set :deploy_to, "/var/railsapps/azcams"
 set :deploy_via, :remote_cache
 set :scm, "git"
 set :branch, "master"
-#set :scm, :none
-#set :repository, "."
-#set :deploy_via, :copy
-	
+
 set :use_sudo, false
 
 default_run_options[:pty] = true  # Must be set for the password prompt
@@ -20,7 +17,6 @@ set :default_environment, {
   'PATH' => "$HOME/.rvm/bin:$PATH"
 }
 
-#set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 role :web, "vds"                          # Your HTTP server, Apache/etc

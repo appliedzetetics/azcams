@@ -1,5 +1,5 @@
 <div class="page-header">
-  <H1>Client details <small> <%= "#{@client.file_no} #{@client.fullname}" %></small></H1>
+  <H1>Client details <small> <%= @client.file_no unless current_user.account.file_no_per_episode? %><%= @client.fullname %></small></H1>
 </div>
 
 <table class="table">

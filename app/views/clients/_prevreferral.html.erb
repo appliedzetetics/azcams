@@ -1,0 +1,14 @@
+<tbody>
+  <tr class="referralinterstitial">
+    <td colspan="4">
+	    <% if current_user.account.file_no_per_episode %>
+		    <%= referral.file_no %>
+      <% end %>
+   	referred by <%= referral.referred_by %>
+   	on <%= referral.referral_date %>
+    for <%= referral.presenting_issue %></td>
+	  <td colspan=3>
+	  	<%= referral.waitingliststatus %>
+	  </td>
+  </tr>
+</tbody>

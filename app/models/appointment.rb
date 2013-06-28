@@ -11,7 +11,7 @@ class Appointment < ActiveRecord::Base
 
 	has_event_calendar :start_at_field => :appointment_start, :end_at_field => :appointment_end
 
-  scope :account, lambda { |u| joins(:allocation => :practitioner).where("users.account_id=?", u.account) }
+  scope :account, lambda { |a| joins(:allocation => :practitioner).where("users.account_id=?", a) }
 
   #
   # Find appointment slots

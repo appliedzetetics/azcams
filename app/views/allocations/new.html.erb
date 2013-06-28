@@ -1,8 +1,10 @@
 <%- model_class = Allocation -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
-                                 :default => "New #{model_class.model_name.human}") %>
-    <small> for <%= @allocation.episode.client.fullname %> (<%= @allocation.episode.waitingliststatus %>)</small>
+  <h1>
+  	Allocate episode to practitioner 
+  	<small>
+  		episode <%= @allocation.episode.file_no %> for <%= @allocation.episode.client.fullname %> (<%= @allocation.episode.waitingliststatus %>)
+  	</small>
   </h1>
 </div>
 <%= render :partial => 'form' %>

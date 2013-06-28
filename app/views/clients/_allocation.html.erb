@@ -1,24 +1,22 @@
-<thead>
-  <th colspan=2>Event</th>
-  <th>Allocated to/referrer</th>
-  <th>Date/time</th>
-  <th>Status/outcome</th>
-  <th>Actions</th></th>
-</thead>
-<td width=2%></td>
-<td>Allocated for <%= allocation.description %></td>
-<td><%= allocation.practitioner.fullname %></td>
-<td><%= allocation.created_at.strftime("%d/%m/%Y") %></td>
+<tr>
+<% if current_user.account.file_no_per_episode %>
+  <td></td>
+<% end %>
+<td colspan="2"><%= allocation.created_at.strftime("%d/%m/%Y") %> Allocated to <%= allocation.practitioner.initials %> for <%= allocation.description %></td>
 <td></td>
 <td>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_allocation_path(allocation), :class => 'btn btn-mini span1' if allocation.appointments.count == 0 %>
+  <%= link_to "<i class=\"icon-time\"></i>&nbsp;Book&nbsp;appt".html_safe,
+              new_appointment_path(:allocation_id => allocation),
+              :class => 'btn btn-mini',
+              :disabled => true
+	%>
 </td>
 <td>
-  <%= link_to t('.delete', :default => t("helpers.links.delete")),
+  <%= link_to "<i class=\"icon-remove-circle\"></i> Delete".html_safe,
               allocation_path(allocation),
               :method => :delete,
               :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-              :class => 'btn btn-mini btn-danger span1' if current_user.admin? && allocation.appointments.count == 0 %>
+              :class => 'btn btn-mini btn-danger' if current_user.admin? && allocation.appointments.count == 0 %>
 </td>
+</tr>
 <%= render :collection => allocation.appointments, :partial => 'appointment' %>

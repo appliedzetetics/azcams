@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912202455) do
+ActiveRecord::Schema.define(:version => 20130627220619) do
 
   create_table "absence_slots", :force => true do |t|
     t.integer  "absence_id"
@@ -215,6 +215,22 @@ ActiveRecord::Schema.define(:version => 20120912202455) do
     t.integer "venue_id",   :null => false
   end
 
+  create_table "field_types", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "file_no_fields", :force => true do |t|
+    t.string   "table"
+    t.string   "column"
+    t.integer  "field_type_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "file_no_fields", ["field_type_id"], :name => "index_file_no_fields_on_field_type_id"
+
   create_table "file_nos", :force => true do |t|
     t.integer  "account_id", :null => false
     t.integer  "file_no",    :null => false
@@ -290,14 +306,33 @@ ActiveRecord::Schema.define(:version => 20120912202455) do
     t.integer  "user_id",    :null => false
   end
 
+  create_table "print_jobs", :force => true do |t|
+    t.integer  "user_id",                            :null => false
+    t.boolean  "private_to_user", :default => false
+    t.string   "content"
+    t.string   "reference"
+    t.integer  "mediatype"
+    t.string   "pdf_file"
+    t.boolean  "printed"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "print_jobs", ["user_id"], :name => "index_print_jobs_on_user_id"
+
   create_table "print_queues", :force => true do |t|
-    t.integer  "user_id",           :null => false
-    t.string   "medium",            :null => false
-    t.string   "entity",            :null => false
-    t.integer  "entity_id",         :null => false
-    t.integer  "print_template_id", :null => false
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer  "user_id",                             :null => false
+    t.string   "medium",                              :null => false
+    t.string   "entity",                              :null => false
+    t.integer  "entity_id",                           :null => false
+    t.integer  "print_template_id",                   :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "pdf_file_name"
+    t.string   "pdf_content_type"
+    t.integer  "pdf_file_size"
+    t.datetime "pdf_updated_at"
+    t.boolean  "printed",           :default => true
   end
 
   add_index "print_queues", ["print_template_id"], :name => "index_print_queues_on_print_template_id"

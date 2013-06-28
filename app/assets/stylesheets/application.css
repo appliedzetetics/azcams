@@ -16,6 +16,10 @@
  *= require bootstrap-datepicker
  *= require lazybox
 */
+body {
+  padding-top: 60px;
+  padding-left: 20px;
+}
 
 .form-actions {
   height: 30px;

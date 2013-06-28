@@ -18,16 +18,23 @@
 				options_from_collection_for_select(AllocationType.all, :id, :description, params[:list]),
 				{ :include_blank => true, :class => "span2", :onchange => "submit()" } %>
 	<%= submit_tag("Submit", :class => 'btn-primary') %>
+	<%= submit_tag("Clear search", :name => 'clear', :class => 'btn-warning') %>
 <% end %>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:file_no) %></th>
+	    <% unless current_user.account.file_no_per_episode %>
+	      <th><%= model_class.human_attribute_name(:file_no) %></th>
+	    <% end %>
       <th>Client name</th>
-      <th>Date of birth</th>
+      <th>DOB</th>
+      <th>Latest Referral</th>
+      <% if current_user.account.practitioners.count > 1 %>
+	      <th>Allocated to</th>
+	    <% end %>
 			<th>Status</th>
       <% if @list %>
-	<th>Waiting since</th>
+				<th>Waiting since</th>
       <% end %>
       <th colspan=4><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>

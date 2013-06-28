@@ -3,16 +3,16 @@ class Practitioner < User
   has_many :clinics
   has_many :allocations
   belongs_to :user
-  has_and_belongs_to_many :episodes
+  belongs_to :account
+  has_and_belongs_to_many :episodes # This association maintains PREFERRED practitioners for this episode
 
   validates :forename, presence: true
   validates :surname, presence: true
   validates :title, presence: true
   validates :email, presence: true
 
-
-  scope :account, lambda { |u| where(:account_id => u.account) }
-  scope :practitioner, joins(:practitioner_types).group([:surname, :forename])
+  default_scope joins(:practitioner_types).uniq
+  
 
   def fullname
     [self.forename, self.surname ].join ' '

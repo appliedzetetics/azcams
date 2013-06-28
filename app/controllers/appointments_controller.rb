@@ -4,7 +4,7 @@ class AppointmentsController < ApplicationController
   # GET /appointments
   # GET /appointments.json
   def index
-    @appointments = Appointment.account(current_user).order("appointment_date, appointment_time DESC").paginate :page => params[:page], :per_page => 16
+    @appointments = Appointment.account(current_user.account).order("appointment_date, appointment_time DESC").paginate :page => params[:page], :per_page => 16
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,7 +1,14 @@
 <tr>
-  <td><%= current_user.account.file_no_per_episode? ? client.current_file_no : client.file_no %></td>
+  <% unless current_user.account.file_no_per_episode %>
+    <td><%= client.fileno %></th>
+  <% end %>
+
   <td><%= client.fullname %></td>
   <td><%= client.dob %></td>
+  <td><%= client.latestepisode.nil? ? '-' : client.latestepisode.referral_date %></td>
+  <% if current_user.account.practitioners.count > 1 %>
+		<td><%= client.latestepisode.nil? ? '-' : (client.latestepisode.lastallocation.nil? ? "-" : client.latestepisode.lastallocation.practitioner.fullname) %></td>
+  <% end %>
   <td><%= client.status %></td>
   <% if @list %>
 	  <td><%= client.waitstartdate %></td>
@@ -21,8 +28,12 @@
 									new_allocation_path(:episode_id => client.latestepisode), :class => 'btn btn-mini' %>
 		<% end %>
 		<% if client.is_allocated? && client.latestepisode.is_allocated_no_appointment? %>
-			<%= link_to "Make appt",
-									new_appointment_path(:allocation_id_new => client.latestepisode.allocations.last), :class => 'btn btn-mini' %>
+			<%= link_to(
+				"Make appt",
+				new_appointment_path(:allocation_id_new => client.latestepisode.allocations.last), 
+				:class => 'btn btn-mini',
+				:disabled => true)
+			%>
 		<% end %>
   </td>
 

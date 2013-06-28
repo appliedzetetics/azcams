@@ -1,7 +1,7 @@
 <%= simple_nested_form_for @clinic, :html => { :class => 'form-horizontal' } do |f| %>
 
-	<%= f.input :practitioner_id, :as => :select, :collection => Practitioner.practitioner.account(current_user).map {|a| [a.fullname, a.id]}, :input_html => { :class => "span2" } %>
-	<%= f.input :venue_id, :as => :select, :collection => Venue.account(current_user).map {|a| [a.name, a.id]}, :input_html => { :class => "span2" } %>
+	<%= f.input :practitioner_id, :as => :select, :collection => Practitioner.practitioner.account(current_user.account).map {|a| [a.fullname, a.id]}, :input_html => { :class => "span2" } %>
+	<%= f.input :venue_id, :as => :select, :collection => Venue.account(current_user.account).map {|a| [a.name, a.id]}, :input_html => { :class => "span2" } %>
 	<%= f.input :effective_from, :as => :date, :input_html => { :class => "span2" } %>
 	<%= f.input :day_of_week, :as => :select, :collection => Clinic::DAYS.invert, :input_html => { :class => "span2" }  %>
 

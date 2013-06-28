@@ -29,7 +29,7 @@ class AllocationsController < ApplicationController
   # GET /allocations/new.json
   def new
     @allocation = Allocation.new
-    @practitioners = Practitioner.account(current_user)
+    @practitioners = Practitioner.account(current_user.account)
     @allocation.episode = Episode.find(params[:episode_id])
     @allocation.allocation_type_id = params[:allocation_type]
     @allocation.appointments.build
@@ -60,6 +60,24 @@ class AllocationsController < ApplicationController
       if @allocation.save
 				@episode = @allocation.episode
         @client = @allocation.episode.client
+
+        report = ODFReport::Report.new("/home/stephen/projects/pccn/Assessment.odt") do |r|
+          r.add_field(:file_no,         @episode.file_no)
+          r.add_field(:client_name,			@episode.client.fullname)
+        end
+				tmpfile="#{$$}-#{rand(0x100000000).to_s(36)}"
+        filename = report.generate("#{tmpfile}.odt")
+        system("/usr/bin/libreoffice --headless --invisible --convert-to pdf #{tmpfile}.odt")
+        p = PrintJob.create do |p|
+        	p.user = current_user
+        	p.content = "Assessment #{@episode.file_no}"
+        	p.mediatype = 1
+        	p.pdf_file = "#{tmpfile}.pdf"
+        end
+        
+        # `gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=./printfile.pdf ./assessmentreport.pdf ./assessmentreport.pdf`
+        
+        
         notice = "Client successfully allocated to #{@allocation.practitioner.fullname}"
         if (params[:bookappointment])
           format.html { redirect_to new_appointment_path(:allocation_id_new => @allocation), :notice => notice }

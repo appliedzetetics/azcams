@@ -4,9 +4,12 @@ class Episode < ActiveRecord::Base
   has_many :allocations
   has_many :episode_contacts
   has_and_belongs_to_many :venues
-  has_and_belongs_to_many :practitioners
+  has_and_belongs_to_many :practitioners # This is PREFERRED practitioners for this episode
+  
+  validates :referral_date, presence: true
 
 	S_ALLOCATED = "Allocated"
+	S_UNALLOCATED = "Unallocated"
 	S_BOOKED = "Booked"
 	S_WAITING = "Waiting"
 	S_WAITING_ALLOC = "Waiting allocation"
@@ -18,9 +21,20 @@ class Episode < ActiveRecord::Base
     self.file_no = sprintf("%02d/%04d", self.referral_date.year.modulo(100), FileNo.next_file_no(a))
   end
 
+  def allocated?
+    (!self.allocations.nil?) || (self.allocations.count > 0)
+  end
+  
   def lastallocation
     self.allocations.last
   end
+
+	def practitioner
+  	if self.allocated?
+    	self.lastallocation.practitioner
+    end
+  end
+
 
   def waitstartdate
     startdate = nil
@@ -74,11 +88,12 @@ class Episode < ActiveRecord::Base
 			status << S_CLOSED
     else
 			if lastalloc.nil? # not allocated
-				status << S_WAITING
-				status << S_ASSESSMENT
+#				status << S_WAITING
+#				status << S_ASSESSMENT
+				status << S_UNALLOCATED
 			else # it's allocated
 				if lastalloc.appointments.last.nil? 	# no appointments
-					status << S_ALLOCATED
+					status << S_WAITING
 					status << lastalloc.description				# so status is "Allocated $allocationtype"
 				else 																	# appointments
 					a = lastalloc.appointments.last	  	# in future? If so, still allocated

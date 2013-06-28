@@ -4,10 +4,8 @@
 	<td><%= appointment.appointment_date %> <%= appointment.appointment_time %></td>
 	<td><%= [appointment.status, appointment.outcome].grep(/./).join "/" %></td>
 	<td>
-		<%= link_to "Modify".html_safe, edit_appointment_path(appointment), :class => 'btn btn-mini span1' %>
-	</td>
-	<td>
-		<%= link_to t('.delete', :default => t("helpers.links.delete")),
+		<%= link_to "<i class=\"icon-edit\"></i> Modify".html_safe, edit_appointment_path(appointment), :class => 'btn btn-mini span1' %>
+		<%= link_to "<i class=\"icon-remove-sign\"></i> Delete".html_safe,
 								appointment_path(appointment),
 								:method => :delete,
 								:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),

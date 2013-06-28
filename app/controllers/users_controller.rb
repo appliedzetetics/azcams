@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :require_admin
 
   def index
-    @users = User.account(current_user).paginate :page => params[:page], :per_page => 16
+    @users = User.account(current_user.account).paginate :page => params[:page], :per_page => 16
 
     respond_to do |format|
       format.html # index.html.erb

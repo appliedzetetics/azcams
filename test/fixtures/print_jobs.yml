@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  private_to_user: false
+  mediatype: 1
+  pdf_file: MyString
+  printed: false
+
+two:
+  user: 
+  private_to_user: false
+  mediatype: 1
+  pdf_file: MyString
+  printed: false

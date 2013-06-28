@@ -4,7 +4,7 @@ class ClinicsController < ApplicationController
   # GET /clinics
   # GET /clinics.json
   def index
-    @clinics = Clinic.account(current_user).paginate :page => params[:page], :per_page => 16
+    @clinics = Clinic.account(current_user.account).paginate :page => params[:page], :per_page => 16
 
     respond_to do |format|
       format.html # index.html.erb

@@ -4,7 +4,21 @@
 </H2>
 
 <table class="table table-condensed">
+  <thead>
+    <% if current_user.account.file_no_per_episode %>
+      <th>File no</th>
+    <% end %>
+		<th colspan="1">Event</th>
+		<th>Status</th>
+  </thead>
   <tbody>
-    <%= render :collection => @episodes, :partial => 'referral' %>
+  	<%
+  		@episodes.each do |e|
+  			if e == episodes.first and !e.closed? %>
+  				<%= render :partial => 'firstreferral', :locals => { :referral => e } %>
+  			<% else %>
+  				<%= render :partial => 'prevreferral', :locals => { :referral => e } %>
+  			<% end
+  	  end %>
   </tbody>
 </table>

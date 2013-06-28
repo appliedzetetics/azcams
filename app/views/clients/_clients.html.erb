@@ -3,6 +3,9 @@
   <td><%= client.surname %></td>
   <td><%= client.forename %></td>
   <td><%= client.dob %></td>
+  <% if current_user.account.practitioners.count > 1 %>
+		<td><%= client.latestepisode.practitioner %></td>
+  <% end %>
   <td><%= client.status %></td>
   <% if @list %>
 	  <td><%= client.waitstartdate %></td>

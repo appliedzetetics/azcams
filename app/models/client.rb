@@ -1,7 +1,7 @@
 class Client < ActiveRecord::Base
 	has_many :episodes
 
-  scope :account, lambda { |u| where(:account_id => u.account) }
+  scope :account, lambda { |a| where(:account_id => a) }
 
   #	a scope to pull all clients with episodes and allocations
 	scope :openallocations, lambda {

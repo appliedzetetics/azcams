@@ -30,6 +30,8 @@ class EpisodesController < ApplicationController
   def new
     @episode = Episode.new
     @episode.closed = false
+    @venues = Venue.all
+    
     if params[:client_id]
     	@episode.client_id = params[:client_id]
     	@client = Client.find(@episode.client_id)
@@ -114,4 +116,5 @@ class EpisodesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 end

@@ -1,6 +1,6 @@
 <div class="alert alert-success">
   <h4>Print Queue</h4>
-  You have <%= printqueue.count %> items waiting to be printed; the oldest item
-  was submitted <%= time_ago_in_words(printqueue.first.created_at) %> ago.
+  You have <%= current_user.print_jobs.count %> items waiting to be printed; the oldest item
+  was submitted <%= time_ago_in_words(print_jobs.first.created_at) %> ago.
   <%= link_to "Print", print_queues_path, :class => 'btn btn-mini' %>
 </div>

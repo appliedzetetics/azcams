@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :clinics
   has_many :allocations
   belongs_to :account
+  belongs_to :print_job
 
   accepts_nested_attributes_for :clinics
 
@@ -15,7 +16,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :surname, :forename, :title, :admin
 
-  scope :account, lambda { |u| where(:account_id => u.account) }
+  scope :account, lambda { |a| where(:account_id => a) }
 
   def fullname
     [self.forename, self.surname].join " "

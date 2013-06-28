@@ -4,33 +4,34 @@ class ClientsController < ApplicationController
   # GET /clients.json
 
   def index
-    @c = Client.account(current_user)
-    if params.has_key? :list
-      cookies[:client_list] = params[:list]
-      if params[:list] > ''
-        @list = AllocationType.find(params[:list])
-        params[:q] = nil
+    @c = Client.account(current_user.account)
+    unless params.has_key? :clear
+      if params.has_key? :list
+        cookies[:client_list] = params[:list]
+        if params[:list] > ''
+          @list = AllocationType.find(params[:list])
+          params[:q] = nil
+        end
+      end
+
+      if params.has_key? :q
+        cookies[:query] = params[:q]
+      end
+
+      @ordertag = "waiting list order, oldest first"
+      if @list && @list.is_assessment?
+        @c = @c.on_ia_wl()
+      elsif @list && @list.is_treatment?
+        @c = @c.on_therapy_wl()
+      else
+        if cookies[:query]
+          params[:q] = cookies[:query]
+          @c = @c.where("surname like ?", cookies[:query] + '%')
+        end
+        @c = @c.order(["surname", "forename"])
+        @ordertag = "alphabetical order"
       end
     end
-
-    if params.has_key? :q
-      cookies[:query] = params[:q]
-    end
-
-    @ordertag = "waiting list order, oldest first"
-    if @list && @list.is_assessment?
-      @c = @c.on_ia_wl()
-    elsif @list && @list.is_treatment?
-      @c = @c.on_therapy_wl()
-    else
-      if cookies[:query]
-        params[:q] = cookies[:query]
-        @c = @c.where("surname like ?", cookies[:query] + '%')
-      end
-      @c = @c.order(["surname", "forename"])
-      @ordertag = "alphabetical order"
-    end
-
     @clients = @c.group("clients.id").paginate :page => params[:page], :per_page => 16
 
     respond_to do |format|
@@ -120,7 +121,7 @@ class ClientsController < ApplicationController
   end
 
   def myclients
-    @clients = Client.account(current_user).
+    @clients = Client.account(current_user.account).
       joins(:episodes=>:allocations).
       where("allocations.practitioner_id=?", current_user).
       group("clients.id").
@@ -132,4 +133,6 @@ class ClientsController < ApplicationController
     end
 
   end
+
+	
 end

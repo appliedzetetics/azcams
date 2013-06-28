@@ -6,7 +6,7 @@ class Clinic < ActiveRecord::Base
   accepts_nested_attributes_for :slots, :allow_destroy => true
 #    :reject_if     => lambda { |s| s[:start_time].blank? }
 
-  scope :account, lambda { |u| joins(:practitioner).where("users.account_id=?", u.account) }
+  scope :account, lambda { |a| joins(:practitioner).where("users.account_id=?", a) }
 
   validates :venue_id, :practitioner_id, :day_of_week, :presence => true
 

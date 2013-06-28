@@ -3,7 +3,7 @@ class AppointmentStatusesController < ApplicationController
   # GET /appointment_statuses
   # GET /appointment_statuses.json
   def index
-    @appointment_statuses = AppointmentStatus.account(current_user)
+    @appointment_statuses = AppointmentStatus.account(current_user.account)
 
     respond_to do |format|
       format.html # index.html.erb

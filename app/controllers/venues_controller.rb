@@ -4,7 +4,7 @@ class VenuesController < ApplicationController
   # GET /venues
   # GET /venues.json
   def index
-    @venues = Venue.account(current_user).paginate :page => params[:page], :per_page => 16
+    @venues = Venue.account(current_user.account).paginate :page => params[:page], :per_page => 16
 
     respond_to do |format|
       format.html # index.html.erb
