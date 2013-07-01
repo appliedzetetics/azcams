@@ -90,6 +90,8 @@ GEM
       multi_json (~> 1.0)
     faker (1.1.2)
       i18n (~> 0.5)
+    font-awesome-rails (3.2.1.1)
+      railties (>= 3.2, < 5.0)
     foreigner (1.4.1)
       activerecord (>= 3.0.0)
     highline (1.6.19)
@@ -214,6 +216,7 @@ DEPENDENCIES
   devise
   event-calendar
   faker
+  font-awesome-rails
   foreigner
   jquery-rails (= 2.3.0)
   json

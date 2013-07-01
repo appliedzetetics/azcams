@@ -134,11 +134,11 @@ class AllocationsController < ApplicationController
   # DELETE /allocations/1.json
   def destroy
     @allocation = Allocation.find(params[:id])
-    @episode_id = @allocation.episode_id
+    @episode = @allocation.episode
     @allocation.destroy
 
     respond_to do |format|
-      format.html { redirect_to episode_path(@episode_id) }
+      format.html { redirect_to client_path(@episode.client) }
       format.json { head :no_content }
     end
   end

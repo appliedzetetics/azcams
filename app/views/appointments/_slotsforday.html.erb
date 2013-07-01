@@ -7,7 +7,11 @@
 					<%= render :partial => "appointments_for_day", :locals => { :appointment => a } %>
 				<% end %>
 			<% else %>
+				<% if s.anticipated_appointment(day) %>
 					<%= render :partial => "appointments_for_day", :locals => { :appointment => s.anticipated_appointment(day) } %>
+				<% else %>
+					<%= render :partial => "unallocated_slots_for_day", :locals => { :slot => s, :day => day } %>
+				<% end %>
 			<% end %>
     </td>
   </tr>

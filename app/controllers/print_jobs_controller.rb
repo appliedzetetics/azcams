@@ -20,11 +20,13 @@ class PrintJobsController < ApplicationController
 #    end
      `/usr/bin/gs -dBATCH -dNOPAUSE -dSAFER-q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=#{outfile} #{files.join(' ')}`
 
-    send_file(outfile, :filename => "azCams print task")
+    send_file(outfile, :filename => "#{current_user.account.name} azCams print task")
 		current_user.print_jobs.unprinted.each do |j|
 			j.printed = true
 			j.save
 		end
+		File.delete(outfile) if File.exist?(outfile)
+		
 	  	
   end
 end
