@@ -1,4 +1,8 @@
 Pccn::Application.routes.draw do
+  get "print_jobs/index"
+
+  get "print_jobs/download"
+
   resources :print_queues
 
   resources :print_templates
@@ -17,6 +21,11 @@ Pccn::Application.routes.draw do
 
   resources :file_nos
 
+  resources :print_jobs do
+  	collection do
+  		get :download
+  	end
+  end
 #  namespace :admin do resources :users end
 
   resources :messages

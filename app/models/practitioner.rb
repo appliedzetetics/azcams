@@ -5,6 +5,7 @@ class Practitioner < User
   belongs_to :user
   belongs_to :account
   has_and_belongs_to_many :episodes # This association maintains PREFERRED practitioners for this episode
+  has_many :print_jobs
 
   validates :forename, presence: true
   validates :surname, presence: true

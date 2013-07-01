@@ -123,8 +123,8 @@ class ClientsController < ApplicationController
   def myclients
     @clients = Client.account(current_user.account).
       joins(:episodes=>:allocations).
-      where("allocations.practitioner_id=?", current_user).
-      group("clients.id").
+      where("allocations.practitioner_id=? AND episodes.closed=0", current_user).
+     group("clients.id").
       paginate :page => params[:page], :per_page => 16
 
     respond_to do |format|

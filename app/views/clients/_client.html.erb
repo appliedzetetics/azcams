@@ -1,13 +1,12 @@
 <tr>
-  <% unless current_user.account.file_no_per_episode %>
-    <td><%= client.fileno %></th>
-  <% end %>
-
+	<td>
+  	<%= current_user.account.file_no_per_episode? ? (client.latestepisode.nil? ? '' : client.latestepisode.file_no) : client.file_no %>
+	</td>
   <td><%= client.fullname %></td>
   <td><%= client.dob %></td>
   <td><%= client.latestepisode.nil? ? '-' : client.latestepisode.referral_date %></td>
   <% if current_user.account.practitioners.count > 1 %>
-		<td><%= client.latestepisode.nil? ? '-' : (client.latestepisode.lastallocation.nil? ? "-" : client.latestepisode.lastallocation.practitioner.fullname) %></td>
+		<td><%= client.latestepisode.nil? ? '-' : (client.latestepisode.lastallocation.nil? ? "-" : client.latestepisode.lastallocation.practitioner.initials) %></td>
   <% end %>
   <td><%= client.status %></td>
   <% if @list %>

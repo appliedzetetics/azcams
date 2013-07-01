@@ -1,6 +1,8 @@
 <tr>
-  <td><%= client.file_no %></td>
-  <td><%= client.surname %></td>
+  <td>
+  	<%= current_user.account.file_no_per_episode? ? client.latestepisode.file_no : client.file_no %>
+  </td>
+  <td>xxx<%= client.surname %></td>
   <td><%= client.forename %></td>
   <td><%= client.dob %></td>
   <% if current_user.account.practitioners.count > 1 %>

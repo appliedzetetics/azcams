@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :clinics
   has_many :allocations
   belongs_to :account
-  belongs_to :print_job
+  has_many :print_jobs
 
   accepts_nested_attributes_for :clinics
 

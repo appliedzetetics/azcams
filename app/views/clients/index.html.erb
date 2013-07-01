@@ -23,9 +23,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-	    <% unless current_user.account.file_no_per_episode %>
-	      <th><%= model_class.human_attribute_name(:file_no) %></th>
-	    <% end %>
+      <th><%= model_class.human_attribute_name(:file_no) %></th>
       <th>Client name</th>
       <th>DOB</th>
       <th>Latest Referral</th>

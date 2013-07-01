@@ -61,21 +61,40 @@ class AllocationsController < ApplicationController
 				@episode = @allocation.episode
         @client = @allocation.episode.client
 
-        report = ODFReport::Report.new("/home/stephen/projects/pccn/Assessment.odt") do |r|
+        report = ODFReport::Report.new("./template/Assessment.odt") do |r|
           r.add_field(:file_no,         @episode.file_no)
+          r.add_field(:assessment_by,		@episode.allocations.last.practitioner.initials)
           r.add_field(:client_name,			@episode.client.fullname)
+          r.add_field(:client_address,	@episode.client.address)
+          r.add_field(:postcode,				@episode.client.postcode)
+          r.add_field(:home_phone,			@episode.client.telephone_home)
+          r.add_field(:mobile_phone,		@episode.client.telephone_mobile)
+          r.add_field(:referral_date_dd,@episode.referral_date.mday)
+          
+          r.add_field(:referral_date_mm,   @episode.referral_date.month)
+          r.add_field(:referral_date_yy,   @episode.referral_date.year)
+          r.add_field(:referred_by,			@episode.referred_by)
+          r.add_field(:email,						@episode.client.email)
+          
+          	  
         end
 				tmpfile="#{$$}-#{rand(0x100000000).to_s(36)}"
-        filename = report.generate("#{tmpfile}.odt")
-        system("/usr/bin/libreoffice --headless --invisible --convert-to pdf #{tmpfile}.odt")
-        p = PrintJob.create do |p|
-        	p.user = current_user
-        	p.content = "Assessment #{@episode.file_no}"
-        	p.mediatype = 1
-        	p.pdf_file = "#{tmpfile}.pdf"
-        end
-        
-        # `gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=./printfile.pdf ./assessmentreport.pdf ./assessmentreport.pdf`
+				#
+				# AnomalyCheck - the reason the odt file does not have spool prefixed is because we have to chdir to
+				# the spool directory when we run the libreoffice convert in order for the PDF to end up in the right place
+			
+				odtfile="#{tmpfile}.odt"
+				pdffile="./spool/#{tmpfile}.pdf"
+        filename = report.generate("./spool/#{odtfile}")
+        if system("cd spool && /usr/bin/libreoffice --headless --invisible --convert-to pdf #{odtfile} && rm -f #{odtfile}")
+          p = PrintJob.create do |p|
+            p.user = current_user
+            p.content = "Assessment #{@episode.file_no}"
+            p.mediatype = 1
+            p.pdf_file = pdffile
+            p.printed = false
+          end
+				end        
         
         
         notice = "Client successfully allocated to #{@allocation.practitioner.fullname}"
