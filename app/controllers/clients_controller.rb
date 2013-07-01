@@ -96,7 +96,8 @@ class ClientsController < ApplicationController
   # PUT /clients/1.json
   def update
     @client = Client.find(params[:id])
-
+    @client.account_id = current_user.account
+    
     respond_to do |format|
       if @client.update_attributes(params[:client])
         format.html { redirect_to @client, :notice => 'Client was successfully updated.' }

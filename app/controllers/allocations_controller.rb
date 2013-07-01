@@ -56,6 +56,9 @@ class AllocationsController < ApplicationController
 #			@allocation.appointment = nil
 #		end
 
+		# Create the spool directory if it doesn't exist
+		
+		Dir.mkdir('./spool') unless File.directory?("./spool")
     respond_to do |format|
       if @allocation.save
 				@episode = @allocation.episode
