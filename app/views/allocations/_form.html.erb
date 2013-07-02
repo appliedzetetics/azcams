@@ -1,13 +1,13 @@
 <%= simple_form_for @allocation, :html => { :class => 'form-horizontal' } do |f| %>
 	<%= f.input :episode_id, :as => :hidden, :value => @allocation.episode_id %>
 	<%= f.association :allocation_type,
-		:include_blank => true,
+		:include_blank => false,
 		:collection => AllocationType.all.map {|a| [a.description, a.id]},
 		:input_html => { :disabled => !params[:allocation_type].nil?, :class => 'span2' }
 	%>
 	<%= f.association :practitioner,
 		:collection => Practitioner.account(current_user.account).map {|a| [a.fullname, a.id]},
-		:include_blank => false,
+		:include_blank => true,
 		:input_html => { :class => 'span2' }
 	%>
 	<div class="form-actions">
