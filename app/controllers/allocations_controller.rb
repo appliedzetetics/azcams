@@ -56,9 +56,6 @@ class AllocationsController < ApplicationController
 #			@allocation.appointment = nil
 #		end
 
-		# Create the spool directory if it doesn't exist
-		
-#		Dir.mkdir('./spool') unless File.directory?("./spool")
     respond_to do |format|
       if @allocation.save
 				@episode = @allocation.episode
@@ -86,10 +83,17 @@ class AllocationsController < ApplicationController
 				# AnomalyCheck - the reason the odt file does not have spool prefixed is because we have to chdir to
 				# the spool directory when we run the libreoffice convert in order for the PDF to end up in the right place
 			
+#				logger.warn "Current directory is #{Dir.pwd}"
 				odtfile="#{tmpfile}.odt"
-				pdffile="/var/spool/azcams/#{tmpfile}.pdf"
-        filename = report.generate("/var/spool/azcams/#{odtfile}")
-        if system("cd /var/spool/azcams && /usr/bin/libreoffice --headless --invisible --convert-to pdf #{odtfile} && rm -f #{odtfile}")
+				pdffile="#{SPOOL_PREFIX}/#{tmpfile}.pdf"
+        filename = report.generate("#{SPOOL_PREFIX}/#{odtfile}")
+#        logger.debug "Generated report filename is #{filename}"
+        cmd = "(cd #{SPOOL_PREFIX} && /usr/bin/libreoffice --headless --invisible --convert-to pdf #{SPOOL_PREFIX}/#{odtfile})"
+#        logger.debug "Executing command \'#{cmd}\'"
+        output,returncode = Open3.capture2e(cmd)
+#        logger.debug "Libreoffice output is #{output}"
+        if returncode == 0
+        	logger.debug "Successfully converted file #{odtfile} to PDF"
           p = PrintJob.create do |p|
             p.user = current_user
             p.content = "Assessment #{@episode.file_no}"
@@ -99,6 +103,7 @@ class AllocationsController < ApplicationController
           end
 				else
 					logger.error "Libreoffice merge returned exit status #{$?.exitstatus}"
+				end
         
         
         notice = "Client successfully allocated to #{@allocation.practitioner.fullname}"

@@ -9,3 +9,4 @@ Time::DATE_FORMATS.merge!(:default => "%H:%M")
 Pccn::Application.initialize!
 
 APP_VERSION = `git describe --always` unless defined? APP_VERSION
+SPOOL_PREFIX = "/var/spool/azcams"
