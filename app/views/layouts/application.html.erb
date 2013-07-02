@@ -90,7 +90,7 @@
 							<% if user_signed_in? %>
 								<h3>Alerts <small></small></h3>
 							  <%= render 'activity' unless flash[:activity].nil? %>
-							  <%= render :partial => 'printqueue', :locals => { :printqueue => printqueue } unless printqueue.count == 0 %>
+							  <%= render :partial => 'print_jobs' %>
 							<% end %>
 						</div><!--/.well -->
 					</div><!--/span-->
