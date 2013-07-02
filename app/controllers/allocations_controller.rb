@@ -107,8 +107,8 @@ class AllocationsController < ApplicationController
 					logger.error "Libreoffice merge returned exit status #{$?.exitstatus}"
 				end
         
-        
-        notice = "Client successfully allocated to #{@allocation.practitioner.fullname}"
+ 				notice = "#{output} (return code #{returncode})"
+#        notice = "Client successfully allocated to #{@allocation.practitioner.fullname}"
         if (params[:bookappointment])
           format.html { redirect_to new_appointment_path(:allocation_id_new => @allocation), :notice => notice }
         else
