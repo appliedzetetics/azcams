@@ -87,11 +87,11 @@ class AllocationsController < ApplicationController
 				odtfile="#{tmpfile}.odt"
 				pdffile="#{SPOOL_PREFIX}/#{tmpfile}.pdf"
         filename = report.generate("#{SPOOL_PREFIX}/#{odtfile}")
-#        logger.debug "Generated report filename is #{filename}"
+        logger.debug "Generated report filename is #{filename}"
         cmd = "(cd #{SPOOL_PREFIX} && /usr/bin/libreoffice --headless --invisible --convert-to pdf #{SPOOL_PREFIX}/#{odtfile})"
-#        logger.debug "Executing command \'#{cmd}\'"
+        logger.debug "Executing command \'#{cmd}\'"
         output,returncode = Open3.capture2e(cmd)
-#        logger.debug "Libreoffice output is #{output}"
+        logger.debug "Libreoffice output is #{output}"
         if returncode == 0
         	logger.debug "Successfully converted file #{odtfile} to PDF"
           p = PrintJob.create do |p|
