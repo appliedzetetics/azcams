@@ -60,8 +60,8 @@ gem 'bundler'
 gem 'rails3-jquery-autocomplete'
 gem 'event-calendar', :require => 'event_calendar'
 gem "watu_table_builder", :require => "table_builder"
-gem 'bootstrap-datepicker-rails'
-gem 'mini_magick'
+gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
+                              :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'gem 'mini_magick'
 gem 'rqrcode-rails3'
 gem "odf-report"
 #gem "paperclip", "~> 3.0"

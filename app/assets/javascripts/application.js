@@ -16,6 +16,7 @@
 //= require jquery-ui
 //= require autocomplete-rails
 //= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
 //= require jquery_nested_form
 //= require lazybox
 //= require_tree .

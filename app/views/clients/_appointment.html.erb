@@ -1,15 +1,14 @@
 <tr class="warning">
   <td></td>
-	<td colspan=2><i class="icon-time"></i>&nbsp;Appointment</td>
-	<td><%= appointment.appointment_date %> <%= appointment.appointment_time %></td>
+	<td colspan=1><i class="icon-time"></i>&nbsp;Appointment <%= appointment.appointment_date %> <%= appointment.appointment_time %></td>
 	<td><%= [appointment.status, appointment.outcome].grep(/./).join "/" %></td>
 	<td>
-		<%= link_to "<i class=\"icon-edit\"></i> Modify".html_safe, edit_appointment_path(appointment), :class => 'btn btn-mini span1' %>
+		<%= link_to "<i class=\"icon-edit\"></i> Modify".html_safe, edit_appointment_path(appointment), :class => 'btn btn-mini' %>
 		<%= link_to "<i class=\"icon-remove-sign\"></i> Delete".html_safe,
 								appointment_path(appointment),
 								:method => :delete,
 								:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-								:class => 'btn btn-mini btn-danger span1' if current_user.admin?
+								:class => 'btn btn-mini btn-danger' if current_user.admin?
 		%>
 	</td>
 	<td></td>

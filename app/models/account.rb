@@ -5,6 +5,7 @@ class Account < ActiveRecord::Base
   has_many :users
   has_many :practitioners
   has_many :settings, :through => :accounts_settings
+  has_many :clients
 
 
   def adminuser

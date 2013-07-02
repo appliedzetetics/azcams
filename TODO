@@ -1,0 +1,5 @@
+* Check that created client gets an account ID
+Look into the awesome fonts on the server - they're not displaying right
+Why isn't server showing the print jobs?
+View episode on server throws error - episode/20
+Check deletion of outfile in print_jobs_controller works.

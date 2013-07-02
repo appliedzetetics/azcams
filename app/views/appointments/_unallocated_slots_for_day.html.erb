@@ -1,0 +1,37 @@
+	<div class="slot" id="<%= s %>">
+    <div class="dropdown">
+   	  <%= sequencelabel(appointment) %>
+		  <%= link_to appointmentlabel(appointment), '#', :class => "dropdown-toggle", "data-toggle" => "dropdown"  %>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <% if appointment.id.nil? %>
+          <li>
+            <%= link_to "Confirm", book_appointments_path(
+              allocation_id: appointment.allocation_id,
+              appointment_date: appointment.appointment_date,
+              appointment_time: appointment.appointment_time,
+              slot_id: appointment.slot_id
+            ), remote: true, method: :post %>
+          </li>
+          <li>
+            <%= link_to "Free slot", '#' %>
+          </li>
+        <% else %>
+          <li><%= link_to "Edit", edit_appointment_path(appointment) %></li>
+          <li class="divider"></li>
+
+          <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">Status</a>
+            <ul class="dropdown-menu">
+              <li><a tabindex="-1" href="#">Second level link</a></li>
+              <li><a tabindex="-1" href="#">Second level link</a></li>
+              <li><a tabindex="-1" href="#">Second level link</a></li>
+              <li><a tabindex="-1" href="#">Second level link</a></li>
+              <li><a tabindex="-1" href="#">Second level link</a></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+	</div>
+
+<% end %>

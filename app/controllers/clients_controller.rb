@@ -4,7 +4,8 @@ class ClientsController < ApplicationController
   # GET /clients.json
 
   def index
-    @c = Client.account(current_user.account)
+#    @c = clients.account(current_user.account)
+		@c = current_user.account.clients
     unless params.has_key? :clear
       if params.has_key? :list
         cookies[:client_list] = params[:list]
@@ -43,7 +44,7 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @client = Client.find(params[:id])
+    @client = current_user.account.clients.find(params[:id])
     @episodes = Episode.where(:client_id => @client).order("referral_date DESC")
     Activity.log(request, current_user, @client)
     r=Activity.check(request, current_user, @client)
@@ -63,7 +64,6 @@ class ClientsController < ApplicationController
   # GET /clients/new.json
   def new
     @client = Client.new
-    @client.account_id == current_user.account
 
     respond_to do |format|
       format.html # new.html.erb
@@ -80,7 +80,7 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     @client = Client.new(params[:client])
-    @client.account_id == current_user.account
+    @client.account = current_user.account
     respond_to do |format|
       if @client.save
         format.html { redirect_to new_episode_path(:client_id => @client), :notice => 'Client was successfully created.' }

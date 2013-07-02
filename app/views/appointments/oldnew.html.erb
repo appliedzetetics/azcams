@@ -1,0 +1,49 @@
+<div class="page-header">
+  <h1>New appointment<br>
+    <small>
+      <%= @appointment.allocation.description %>
+      with <%= @appointment.allocation.practitioner.fullname %>
+      for <%= @appointment.allocation.episode.client.fullname %>
+    </small>
+  </h1>
+</div>
+
+<div class="row bottomline">
+  <div class="span9">
+    <div class="row">
+      <div class="span4">
+      	<div class="span5">
+	      	asdasdasdsa
+      	</div>
+      	</div>
+	      <% if false %>
+          <legend>Search for appointments</legend>
+          <%= render "select" %>
+        </div>
+        <div class="span5">
+          <legend>Available appointments</legend>
+          <% if @appointments.count > 0 %>
+            <table class="table-striped table-condensed table-hover">
+              <thead>
+                <th>Practitioner</th>
+                <th colspan=2>Date/time</th>
+                <th>Venue</th>
+              </thead>
+              <tbody>
+                <%= render :collection => @appointments, :partial => "freeslots" %>
+              </tbody>
+            </table>
+              <%= render "notification" %>
+          <% else %>
+            <div class="alert alert-error">
+              There are no appointments available for the selected practitioner and/or venue. Please reselect
+            </div>
+          <% end %>
+        </div>
+	    <% end %>
+	    
+	    
+	  </div>
+  </div>
+</div>
+<%= link_to 'Back', :back, :class=>"btn" %>

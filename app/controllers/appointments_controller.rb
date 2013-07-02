@@ -53,6 +53,7 @@ class AppointmentsController < ApplicationController
   # GET /appointments/new
   # GET /appointments/new.json
   def new
+    @appointment = Appointment.new
     #
     # We get the allocation ID in as a parameter (in :allocation_id_new), from which
     # we can derive the appointment type, the practitioner, client, preferred venue, etc.
@@ -60,24 +61,22 @@ class AppointmentsController < ApplicationController
     if params[:notification]
       flash[:activity] = NOTIFICATIONTYPE[params[:notification]]
     end
-    allocation = Allocation.find(params[:allocation_id_new]) if (params[:allocation_id_new])
+    @allocation = Allocation.find(params[:allocation_id]) if (params[:allocation_id])
 
     practitioners = []
     venues = []
     # any practitioners selected in params?
-    if allocation.nil? # not already allocated, so we have a free choice of practitioners
+    if @allocation.nil? # not already allocated, so we have a free choice of practitioners
       practitioners=params[:practitioner]
-
     else
-      practitioners = [allocation.practitioner] if allocation.practitioner
+      practitioners = [@allocation.practitioner] if @allocation.practitioner
     end
 
     venues = params[:venue]
 
-    @appointments = Appointment.find_appointment_slots(allocation, practitioners, venues)
+    @appointments = Appointment.find_appointment_slots(@allocation, practitioners, venues)
 
-    @appointment = Appointment.new
-		@appointment.allocation = allocation
+		@appointment.allocation = @allocation
 
 		params[:appointment_date] && @appointment.appointment_date = params[:appointment_date]
 		params[:appointment_time] && @appointment.appointment_time = params[:appointment_time]
@@ -106,10 +105,9 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(params[:appointment])
 
-    @appointment.allocation = Allocation.find(params[:allocation])
-    @appointment.slot = Slot.find(params[:slot])
-    @appointment.appointment_date = params[:appointment_date]
-    @appointment.appointment_time = @appointment.slot.start_time
+#    @appointment.slot = Slot.find(params[:slot])
+#    @appointment.appointment_date = params[:appointment_date]
+#    @appointment.appointment_time = @appointment.slot.start_time
     @appointment.counted = true
 
     respond_to do |format|

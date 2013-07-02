@@ -1,6 +1,7 @@
 class Client < ActiveRecord::Base
 	has_many :episodes
-
+	belongs_to :account
+	
   scope :account, lambda { |a| where(:account_id => a) }
 
   #	a scope to pull all clients with episodes and allocations
@@ -37,7 +38,7 @@ class Client < ActiveRecord::Base
 		includes(:episodes=>{:allocations=>[:appointments,:allocation_type]}).
 			where("episodes.id IS NOT NULL").
 			where("episodes.closed=0").
-			where("appointments.appointment_date < NOW()").
+#			where("appointments.appointment_date < NOW()").
 			where("(allocation_types.is_assessment > 0 AND appointments.id is not null) OR (allocation_types.is_treatment > 0 AND appointments.id IS NULL)").
 			order("greatest(coalesce(allocations.created_at, '0000-00-00'), coalesce(appointment_date, '0000-00-00'))")
 
