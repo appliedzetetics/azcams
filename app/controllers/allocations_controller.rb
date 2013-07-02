@@ -58,7 +58,7 @@ class AllocationsController < ApplicationController
 
 		# Create the spool directory if it doesn't exist
 		
-		Dir.mkdir('./spool') unless File.directory?("./spool")
+#		Dir.mkdir('./spool') unless File.directory?("./spool")
     respond_to do |format|
       if @allocation.save
 				@episode = @allocation.episode
@@ -87,9 +87,9 @@ class AllocationsController < ApplicationController
 				# the spool directory when we run the libreoffice convert in order for the PDF to end up in the right place
 			
 				odtfile="#{tmpfile}.odt"
-				pdffile="./spool/#{tmpfile}.pdf"
-        filename = report.generate("./spool/#{odtfile}")
-        if system("cd spool && /usr/bin/libreoffice --headless --invisible --convert-to pdf #{odtfile} && rm -f #{odtfile}")
+				pdffile="/var/spool/azcams/#{tmpfile}.pdf"
+        filename = report.generate("/var/spool/azcams/#{odtfile}")
+        if system("cd /var/spool/azcams && /usr/bin/libreoffice --headless --invisible --convert-to pdf #{odtfile} && rm -f #{odtfile}")
           p = PrintJob.create do |p|
             p.user = current_user
             p.content = "Assessment #{@episode.file_no}"

@@ -5,7 +5,7 @@ class PrintJobsController < ApplicationController
 	# link to allow downloading of print jobs. Currently just does everything for the current user , but will need
 	# eventually to be able to specify on the basis of media type, etc
   def download
-  	outfile = "./spool/#{$$}-#{rand(0x100000000).to_s(36)}.pdf"
+  	outfile = "/var/spool/azcams/#{$$}-#{rand(0x100000000).to_s(36)}.pdf"
 		files = current_user.print_jobs.unprinted.pluck(:pdf_file)
 		logger.debug "Job files: #{files.join(' ')}"
 		
