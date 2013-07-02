@@ -1,3 +1,5 @@
+require 'open3'
+
 class AllocationsController < ApplicationController
 	before_filter :authenticate_user!
 
