@@ -97,7 +97,8 @@ class AllocationsController < ApplicationController
             p.pdf_file = pdffile
             p.printed = false
           end
-				end        
+				else
+					logger.error "Libreoffice merge returned exit status #{$?.exitstatus}"
         
         
         notice = "Client successfully allocated to #{@allocation.practitioner.fullname}"
