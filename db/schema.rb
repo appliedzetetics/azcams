@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627220619) do
+ActiveRecord::Schema.define(:version => 20130711175636) do
 
   create_table "absence_slots", :force => true do |t|
     t.integer  "absence_id"
@@ -89,7 +89,15 @@ ActiveRecord::Schema.define(:version => 20130627220619) do
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
     t.integer  "default_appointment_count", :default => 1,     :null => false
+    t.integer  "account_id",                :default => 0,     :null => false
   end
+
+  create_table "allocation_types_templates", :id => false, :force => true do |t|
+    t.integer "allocation_type_id", :null => false
+    t.integer "template_id",        :null => false
+  end
+
+  add_index "allocation_types_templates", ["allocation_type_id", "template_id"], :name => "allocation_types_templates_index"
 
   create_table "allocations", :force => true do |t|
     t.integer  "episode_id"
@@ -167,6 +175,39 @@ ActiveRecord::Schema.define(:version => 20130627220619) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "document_fields", :force => true do |t|
+    t.string   "documentfield"
+    t.string   "railsvariable"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "document_fields", ["documentfield"], :name => "index_document_fields_on_documentfield"
+  add_index "document_fields", ["railsvariable"], :name => "index_document_fields_on_railsvariable"
+
+  create_table "document_fields_templates", :id => false, :force => true do |t|
+    t.integer "document_field_id"
+    t.integer "template_id"
+  end
+
+  add_index "document_fields_templates", ["document_field_id", "template_id"], :name => "document_fields_templates_index"
+
   create_table "episode_contacts", :force => true do |t|
     t.datetime "contacted",         :null => false
     t.integer  "episode_id",        :null => false
@@ -194,12 +235,13 @@ ActiveRecord::Schema.define(:version => 20130627220619) do
     t.date     "referral_date"
     t.string   "referred_by"
     t.string   "status"
-    t.boolean  "closed",           :null => false
-    t.integer  "client_id",        :null => false
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.boolean  "closed",                              :null => false
+    t.integer  "client_id",                           :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.text     "presenting_issue"
     t.string   "file_no"
+    t.boolean  "urgent",           :default => false
   end
 
   add_index "episodes", ["client_id"], :name => "index_episodes_on_client_id"
@@ -251,6 +293,13 @@ ActiveRecord::Schema.define(:version => 20130627220619) do
   add_index "ideas", ["user_id"], :name => "index_ideas_on_user_id"
 
   create_table "mdays", :primary_key => "mday", :force => true do |t|
+  end
+
+  create_table "media_types", :force => true do |t|
+    t.integer  "account_id", :null => false
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "message_types", :force => true do |t|
@@ -311,14 +360,21 @@ ActiveRecord::Schema.define(:version => 20130627220619) do
     t.boolean  "private_to_user", :default => false
     t.string   "content"
     t.string   "reference"
-    t.integer  "mediatype"
+    t.integer  "media_type_id"
     t.string   "pdf_file"
     t.boolean  "printed"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
+    t.integer  "print_media_id"
   end
 
   add_index "print_jobs", ["user_id"], :name => "index_print_jobs_on_user_id"
+
+  create_table "print_media", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "print_queues", :force => true do |t|
     t.integer  "user_id",                             :null => false
@@ -373,8 +429,13 @@ ActiveRecord::Schema.define(:version => 20130627220619) do
     t.string   "name"
     t.string   "description"
     t.string   "filename"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "template_file_name"
+    t.string   "template_content_type"
+    t.integer  "template_file_size"
+    t.datetime "template_updated_at"
+    t.integer  "media_type_id"
   end
 
   add_index "templates", ["account_id"], :name => "index_templates_on_account_id"
@@ -429,6 +490,25 @@ ActiveRecord::Schema.define(:version => 20130627220619) do
     t.string "rogue_address",          :limit => 56
     t.text   "notes"
   end
+
+  create_table "trigger_types", :force => true do |t|
+    t.string   "name"
+    t.boolean  "is_print"
+    t.boolean  "is_script"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "triggers", :force => true do |t|
+    t.integer  "allocation_type_id"
+    t.integer  "trigger_type_id"
+    t.integer  "object_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "triggers", ["allocation_type_id"], :name => "index_triggers_on_allocation_type_id"
+  add_index "triggers", ["trigger_type_id"], :name => "index_triggers_on_trigger_type_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false

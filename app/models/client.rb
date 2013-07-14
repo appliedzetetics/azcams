@@ -53,6 +53,9 @@ class Client < ActiveRecord::Base
 		"#{forename} #{surname} #{dob}"
 	end
 
+  def address_formatted
+  	address.gsub!(/\r\n/, ' ')
+  end
   #
   # Derived fields from other tables
   #

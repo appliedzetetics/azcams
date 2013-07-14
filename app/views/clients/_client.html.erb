@@ -6,7 +6,11 @@
   <td><%= client.dob %></td>
   <td><%= client.latestepisode.nil? ? '-' : client.latestepisode.referral_date %></td>
   <% if current_user.account.practitioners.count > 1 %>
-		<td><%= client.latestepisode.nil? ? '-' : (client.latestepisode.lastallocation.nil? ? "-" : client.latestepisode.lastallocation.practitioner.initials) %></td>
+		<td>
+			<%= 
+				client.latestepisode.nil? ? '-' : (client.latestepisode.lastallocation.nil? ? "-" : client.latestepisode.practitioner.nil? ? ' ' : client.latestepisode.lastallocation.practitioner.initials) 
+			%>
+		</td>
   <% end %>
   <td><%= client.status %></td>
   <% if @list %>

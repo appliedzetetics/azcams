@@ -1,29 +1,36 @@
-<h1>Listing templates</h1>
-
-<table>
-  <tr>
-    <th>Account</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Filename</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @templates.each do |template| %>
-  <tr>
-    <td><%= template.account %></td>
-    <td><%= template.name %></td>
-    <td><%= template.description %></td>
-    <td><%= template.filename %></td>
-    <td><%= link_to 'Show', template %></td>
-    <td><%= link_to 'Edit', edit_template_path(template) %></td>
-    <td><%= link_to 'Destroy', template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%- model_class = Template -%>
+<div class="page-header">
+  <h1>Templates <small>print template documents</small></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Filename</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @templates.each do |template| %>
+      <tr>
+        <td><%= link_to template.name, template_path(template) %></td>
+        <td><%= template.description %></td>
+        <td><%= template.filename %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_template_path(template), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      template_path(template),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Template', new_template_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_template_path,
+            :class => 'btn btn-primary' %>

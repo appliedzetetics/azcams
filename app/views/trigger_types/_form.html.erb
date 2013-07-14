@@ -1,0 +1,10 @@
+<%= simple_form_for @trigger_type, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name %>
+  <%= f.input :is_print %>
+  <%= f.input :is_script %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                trigger_types_path, :class => 'btn' %>
+  </div>
+<% end %>

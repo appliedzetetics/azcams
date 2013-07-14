@@ -10,3 +10,5 @@ Pccn::Application.initialize!
 
 APP_VERSION = `git describe --always` unless defined? APP_VERSION
 SPOOL_PREFIX = "/var/spool/azcams"
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8

@@ -2,7 +2,7 @@ class TemplatesController < ApplicationController
   # GET /templates
   # GET /templates.json
   def index
-    @templates = Template.all
+    @templates = current_user.account.templates.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +25,8 @@ class TemplatesController < ApplicationController
   # GET /templates/new.json
   def new
     @template = Template.new
-
+    @template.account = current_user.account
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @template }

@@ -1,4 +1,8 @@
 Pccn::Application.routes.draw do
+  resources :triggers
+
+  resources :trigger_types
+
   get "print_jobs/index"
 
   get "print_jobs/download"
@@ -88,6 +92,7 @@ Pccn::Application.routes.draw do
   resources :practitioners
 
   resources :practitioner_types
+  resources :allocation_types
 
   resources :venues
 

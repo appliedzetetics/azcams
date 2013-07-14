@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  template: 
+  documentfield: MyString
+  railsvariable: MyString
+
+two:
+  template: 
+  documentfield: MyString
+  railsvariable: MyString

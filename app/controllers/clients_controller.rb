@@ -1,5 +1,4 @@
 class ClientsController < ApplicationController
-	before_filter :authenticate_user!
   # GET /clients
   # GET /clients.json
 
@@ -52,7 +51,7 @@ class ClientsController < ApplicationController
       flash[:activity] = r.map{|a| a.id }.join('!')
     end
 
-    if (@client.account_id == current_user.account.id + 1)
+    if (@client.account_id == current_user.account.id)
       respond_to do |format|
         format.html # show.html.erb
         format.json { render :json => @client }

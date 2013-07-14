@@ -67,6 +67,7 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-deploy (0.3.2)
       capistrano (~> 2.9)
+    choice (0.1.6)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -79,6 +80,12 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     commonjs (0.2.6)
+    daemons (1.1.8)
+    delayed_job (3.0.5)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.4.4)
+      activerecord (>= 2.1.0, < 4)
+      delayed_job (~> 3.0)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -151,6 +158,11 @@ GEM
       activesupport (= 3.2.6)
       bundler (~> 1.0)
       railties (= 3.2.6)
+    rails-erd (1.1.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      choice (~> 0.1.6)
+      ruby-graphviz (~> 1.0.4)
     rails3-jquery-autocomplete (1.0.11)
       rails (~> 3.0)
     railties (3.2.6)
@@ -166,6 +178,7 @@ GEM
     rqrcode (0.4.2)
     rqrcode-rails3 (0.1.6)
       rqrcode (>= 0.4.2)
+    ruby-graphviz (1.0.9)
     rubyzip (0.9.9)
     sass (3.2.9)
     sass-rails (3.2.6)
@@ -210,6 +223,8 @@ DEPENDENCIES
   capistrano-deploy
   cocaine
   coffee-rails (~> 3.2.1)
+  daemons
+  delayed_job_active_record
   devise
   event-calendar
   faker
@@ -229,6 +244,7 @@ DEPENDENCIES
   pdfkit
   populator
   rails (= 3.2.6)
+  rails-erd
   rails3-jquery-autocomplete
   rqrcode-rails3
   sass-rails (~> 3.2.3)

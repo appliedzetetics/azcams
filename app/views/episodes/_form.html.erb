@@ -8,6 +8,7 @@
 	%>
   <%= f.input :referral_date, :as => :string, :hint => 'We need to validate presence/validity of this date', :input_html => { :class => "span2" }  %>
   <%= f.input :referred_by %>
+  <%= f.input :urgent, :as => :boolean %>
   <%= f.input :closed, :as => :boolean if @episode.persisted? %>
   <%= f.input :presenting_issue, :input_html => { :class => "input-xlarge span5", :rows=>5 } %>
   <div class="row">

@@ -2,7 +2,12 @@
 <% if current_user.account.file_no_per_episode %>
   <td></td>
 <% end %>
-<td colspan="2"><%= allocation.created_at.strftime("%d/%m/%Y") %> Allocated to <%= allocation.practitioner.initials %> for <%= allocation.description %></td>
+<td colspan="2"><%= allocation.created_at.strftime("%d/%m/%Y") %> 
+Allocated 
+<% unless allocation.practitioner.nil? %>
+to <%= allocation.practitioner.initials %> 
+<% end %>
+	for <%= allocation.description %></td>
 <td colspan=2>
   <%= link_to(
 	  	"<i class=\"icon-time\"></i>&nbsp;Book&nbsp;appt".html_safe,

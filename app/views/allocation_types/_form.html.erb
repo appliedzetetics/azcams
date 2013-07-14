@@ -1,0 +1,12 @@
+<%= simple_form_for @allocation_type, :html => { :class => 'form-horizontal' } do |f| %>
+	<%= f.input  :description,   :label => 'Description', :as => :string, :input_html => { :class => "span2" } %>
+	<%= f.input  :is_assessment, :label => 'Assessment?', :as => :boolean, :input_html => { :class => "span1" } %>
+	<%= f.input  :is_treatment, :label => 'Treatment?', :as => :boolean, :input_html => { :class => "span1" } %>
+	<%= f.association :templates, 
+		:as => :check_boxes, 
+		:collection => current_user.account.templates.all,
+		:hint => "Select actions to perform when this allocation type is selected for an episode/referral"
+	%>
+
+	<%= render :partial => 'form_actions', :locals => { f: f } %>	
+<% end %>

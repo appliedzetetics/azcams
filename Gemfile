@@ -8,7 +8,6 @@ gem 'rails', '3.2.6'
 
 gem 'mysql2'
 gem 'foreigner'
-gem "nifty-generators", :group => :development
 
 gem 'json'
 gem 'multi_json'
@@ -39,10 +38,6 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Deploy with Capistrano
 gem 'capistrano'
-gem 'capistrano-deploy', :group => :development, :require => false
-
-# To use debugger
-# gem 'ruby-debug'
 
 gem 'therubyracer'
 gem 'less-rails-bootstrap'
@@ -54,8 +49,6 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 gem 'bootstrap-will_paginate'
 gem 'devise'
 gem 'cancan'
-gem 'populator'
-gem 'faker'
 gem 'bundler'
 gem 'rails3-jquery-autocomplete'
 gem 'event-calendar', :require => 'event_calendar'
@@ -75,3 +68,13 @@ gem "newrelic_rpm"
 gem "wkhtmltopdf-binary"
 gem "pdfkit"
 gem "font-awesome-rails"
+gem 'delayed_job_active_record'
+gem 'daemons'
+
+group :development do
+  gem "rails-erd"
+	gem 'populator'
+	gem 'faker'
+	gem 'capistrano-deploy', :group => :development, :require => false
+	gem "nifty-generators", :group => :development
+end

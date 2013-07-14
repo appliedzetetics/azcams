@@ -1,0 +1,14 @@
+#          r.add_field(:file_no,         @episode.file_no)
+#
+#          r.add_field(:assessment_by,   @episode.allocations.last.practitioner.initials) unless @episode.lastallocation.practitioner.nil?
+#          r.add_field(:client_name,     @episode.client.fullname)
+#          r.add_field(:client_address,  @episode.client.address) 
+#          r.add_field(:postcode,        @episode.client.postcode)
+#          r.add_field(:home_phone,      @episode.client.telephone_home)
+#          r.add_field(:mobile_phone,    @episode.client.telephone_mobile)
+#          r.add_field(:referral_date_dd,@episode.referral_date.mday)
+#
+#          r.add_field(:referral_date_mm,   @episode.referral_date.month)
+#          r.add_field(:referral_date_yy,   @episode.referral_date.year) 
+#          r.add_field(:referred_by,     @episode.referred_by)
+#          r.add_field(:email,           @episode.client.email)

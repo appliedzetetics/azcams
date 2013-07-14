@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  allocation_type: 
+  trigger_type: 
+  object_id: 1
+
+two:
+  allocation_type: 
+  trigger_type: 
+  object_id: 1

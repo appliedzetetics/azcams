@@ -6,7 +6,7 @@
   <td><%= client.forename %></td>
   <td><%= client.dob %></td>
   <% if current_user.account.practitioners.count > 1 %>
-		<td><%= client.latestepisode.practitioner %></td>
+		<td><%= client.latestepisode.practitioner unless client.latestepisode.practitioner.nil? %></td>
   <% end %>
   <td><%= client.status %></td>
   <% if @list %>

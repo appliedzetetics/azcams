@@ -1,0 +1,2 @@
+module TriggerTypesHelper
+end

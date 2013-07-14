@@ -9,6 +9,7 @@
     <% unless @appointment.id.nil? %>
       <%= f.association :appointment_status, :as => :select, :collection => AppointmentStatus.all.map { |a| [ a.description, a.id ] }, :include_blank => true %>
       <%= f.input :outcome %>
+			<%= f.input :urgent %>
     <% end %>
 
 

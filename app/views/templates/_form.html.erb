@@ -1,14 +1,14 @@
-<%= simple_form_for(@template) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.association :account %>
-    <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.input :filename %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
+<%= simple_form_for @template, :html => { :class => 'form-horizontal' } do |f| %>
+	<%= f.input  :name, :label => 'Name', :as => :string, :input_html => { :class => "span2" } %>
+	<%= f.input  :name, :label => 'Description', :as => :string, :input_html => { :class => "span4" } %>
+	
+	<%= f.input :template %>
+	
+	<div class="form-actions">
+	  <% if controller.action_name == 'edit' %>
+      <%= f.button :submit, "Update", :class => 'btn' %>
+		<% else %>
+      <%= f.button :submit, "Create", :class => 'btn' %>
+  	<% end  %>
   </div>
 <% end %>

@@ -1,0 +1,18 @@
+<%= semantic_form_for @allocation do |f| %>
+  <%= f.semantic_errors %>
+
+  <%= f.inputs do %>
+    <%= f.input :episode_id, :as => :hidden %>
+    <%= f.input :allocation_type, :as => :hidden %>
+    <%= f.input :practitioner_id, :as => :select, :collection => Practitioner.all.map { |a| [ a.fullname, a.id ] } %>
+    <H2>Appointment <small>(optional)</small></h2>
+    <%= f.semantic_fields_for :appointments do |a| %>
+    	<%= a.date_select :appointment_date, :required => false %>
+	<%= a.time_select :appointment_time, :required => false %>
+    <% end %>
+  <% end %>
+
+   <%= f.actions do %>
+    <%= f.actions :submit, :button_html => {:class => "primary"} %>
+  <% end %>
+<% end %>

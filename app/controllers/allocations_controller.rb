@@ -53,6 +53,7 @@ class AllocationsController < ApplicationController
   def create
     @allocation = Allocation.new(params[:allocation])
     @allocation.appointment_count = @allocation.allocation_type.default_appointment_count
+    
 #    @practitioners = Practitioner.find :all
 #		if (@allocation.appointment.appointment_date == '')
 #			@allocation.appointment = nil
@@ -60,55 +61,11 @@ class AllocationsController < ApplicationController
 
     respond_to do |format|
       if @allocation.save
+		    @allocation.generate_print_jobs_async(current_user)
 				@episode = @allocation.episode
         @client = @allocation.episode.client
 
-        report = ODFReport::Report.new("./template/Assessment.odt") do |r|
-          r.add_field(:file_no,         @episode.file_no)
-          r.add_field(:assessment_by,		@episode.allocations.last.practitioner.initials)
-          r.add_field(:client_name,			@episode.client.fullname)
-          r.add_field(:client_address,	@episode.client.address)
-          r.add_field(:postcode,				@episode.client.postcode)
-          r.add_field(:home_phone,			@episode.client.telephone_home)
-          r.add_field(:mobile_phone,		@episode.client.telephone_mobile)
-          r.add_field(:referral_date_dd,@episode.referral_date.mday)
-          
-          r.add_field(:referral_date_mm,   @episode.referral_date.month)
-          r.add_field(:referral_date_yy,   @episode.referral_date.year)
-          r.add_field(:referred_by,			@episode.referred_by)
-          r.add_field(:email,						@episode.client.email)
-          
-          	  
-        end
-				tmpfile="#{$$}-#{rand(0x100000000).to_s(36)}"
-				#
-				# AnomalyCheck - the reason the odt file does not have spool prefixed is because we have to chdir to
-				# the spool directory when we run the libreoffice convert in order for the PDF to end up in the right place
-			
-#				logger.warn "Current directory is #{Dir.pwd}"
-				odtfile="#{tmpfile}.odt"
-				pdffile="#{SPOOL_PREFIX}/#{tmpfile}.pdf"
-        filename = report.generate("#{SPOOL_PREFIX}/#{odtfile}")
-        logger.debug "Generated report filename is #{filename}"
-        cmd = "(cd #{SPOOL_PREFIX} && /usr/bin/libreoffice --headless --invisible --convert-to pdf #{SPOOL_PREFIX}/#{odtfile})"
-        logger.debug "Executing command \'#{cmd}\'"
-        output,returncode = Open3.capture2e(cmd)
-        logger.debug "Libreoffice output is #{output}"
-        if returncode == 0
-        	logger.debug "Successfully converted file #{odtfile} to PDF"
-          p = PrintJob.create do |p|
-            p.user = current_user
-            p.content = "Assessment #{@episode.file_no}"
-            p.mediatype = 1
-            p.pdf_file = pdffile
-            p.printed = false
-          end
-				else
-					logger.error "Libreoffice merge returned exit status #{$?.exitstatus}"
-				end
-        
- 				notice = "#{output} (return code #{returncode})"
-#        notice = "Client successfully allocated to #{@allocation.practitioner.fullname}"
+        notice = "Client successfully allocated to #{@allocation.practitioner.fullname}"
         if (params[:bookappointment])
           format.html { redirect_to new_appointment_path(:allocation_id_new => @allocation), :notice => notice }
         else
@@ -129,6 +86,8 @@ class AllocationsController < ApplicationController
 
     respond_to do |format|
       if @allocation.update_attributes(params[:allocation])
+		    @allocation.generate_print_jobs_async(current_user)
+      
         format.html { redirect_to session[:return_to], :notice => 'Allocation was successfully updated.' }
         format.json { head :no_content }
       else

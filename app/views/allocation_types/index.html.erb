@@ -1,0 +1,42 @@
+<%- model_class = AllocationType -%>
+<div class="page-header">
+  <h1>Allocation Types <small></small></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Assessment?</th>
+      <th>Treatment?</th>
+      <th>Triggers</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @allocation_types.each do |allocation_type| %>
+      <tr>
+        <td><%= allocation_type.description %></td>
+        <td align="center"><i class="icon-<%= allocation_type.is_assessment ? "ok" : "remove" %>"></i></td>
+        <td align="center"><i class="icon-<%= allocation_type.is_treatment ? "ok" : "remove" %>"></i></td>
+				<td>
+					<% allocation_type.templates.each do |t| %>
+						<%=  t.name %><br/>
+					<% end %>
+				</td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_allocation_type_path(allocation_type), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      allocation_type_path(allocation_type),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_allocation_type_path,
+            :class => 'btn btn-primary' %>

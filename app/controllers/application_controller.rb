@@ -3,10 +3,10 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  helper_method :printqueue
+#  helper_method :printqueue
 
-  def printqueue
-    p = PrintQueue.where(:medium => 'Letter')
-  end
+#  def printqueue
+#    p = PrintQueue.where(:medium => 'Letter')
+#  end
 
 end

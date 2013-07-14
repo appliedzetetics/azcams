@@ -1,0 +1,30 @@
+<%- model_class = AllocationType -%>
+<div class="page-header">
+  <h1>Allocation Type</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>
+  	Description:
+  </strong></dt>
+  <dd><%= @allocation_type.description %></dd>
+  <dt>
+  	<strong>
+  		Assessment?
+  	</strong>
+  </dt>
+  <dd>
+		<i class="icon-<%= @allocation_type.is_assessment ? "ok" : "remove" %>"></i>
+	</dd>
+  <dt>
+  	<strong>
+  		Treatment?
+  	</strong>
+  </dt>
+  <dd>
+		<i class="icon-<%= @allocation_type.is_treatment ? "ok" : "remove" %>"></i>
+	</dd>
+
+</dl>
+<%= render :partial => "form_actions" %>
+
