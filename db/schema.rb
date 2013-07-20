@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719191113) do
+ActiveRecord::Schema.define(:version => 20130720112146) do
 
   create_table "absence_slots", :force => true do |t|
     t.integer  "absence_id"
