@@ -44,7 +44,7 @@ class ClientsController < ApplicationController
   # GET /clients/1.json
   def show
     @client = current_user.account.clients.find(params[:id])
-    @episodes = Episode.where(:client_id => @client).order("referral_date DESC")
+    @episodes = @client.episodes.order("referral_date DESC")
     Activity.log(request, current_user, @client)
     r=Activity.check(request, current_user, @client)
     unless r.nil?

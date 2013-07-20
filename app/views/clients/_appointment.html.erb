@@ -1,6 +1,6 @@
-<tr class="warning">
+<tr class="appointment">
   <td></td>
-	<td colspan=1><i class="icon-time"></i>&nbsp;Appointment <%= appointment.appointment_date %> <%= appointment.appointment_time %></td>
+	<td class="appointment" colspan=1><i class="icon-time"></i>&nbsp;Appointment <%= appointment.appointment_date %> <%= appointment.appointment_time %></td>
 	<td><%= [appointment.status, appointment.outcome].grep(/./).join "/" %></td>
 	<td>
 		<%= link_to "<i class=\"icon-edit\"></i> Modify".html_safe, edit_appointment_path(appointment), :class => 'btn btn-mini' %>

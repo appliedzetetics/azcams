@@ -5,6 +5,8 @@ Pccn::Application.routes.draw do
 
   get "print_jobs/index"
 
+	# :id represents the media type
+	
   get "print_jobs/download"
 
   resources :print_queues
@@ -25,10 +27,10 @@ Pccn::Application.routes.draw do
 
   resources :file_nos
 
-  resources :print_jobs do
-  	collection do
-  		get :download
-  	end
+	resources :print_jobs do
+		member do
+	  	get 'download/:media_type', :action => 'download', :as => 'download'
+	  end
   end
 #  namespace :admin do resources :users end
 
@@ -52,7 +54,7 @@ Pccn::Application.routes.draw do
   unauthenticated :user do
   	root :to => "static#welcome"
   end
-
+  
   authenticated :user do
   	root :to => "static#status"
   end
@@ -66,8 +68,12 @@ Pccn::Application.routes.draw do
     end
   end
 
-  resources :allocations
-
+  resources :allocations do
+		member do
+			get 'templatelist'
+		end
+	end
+	 	 
   resources :assessments
 
   resources :temporary_imports

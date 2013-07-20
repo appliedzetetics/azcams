@@ -1,0 +1,141 @@
+    triggering load callbacks
+  * executing `production'
+    triggering start callbacks for `deploy'
+  * executing `multistage:ensure'
+  * executing `deploy'
+  * executing `deploy:update'
+ ** transaction: start
+  * executing `deploy:update_code'
+    updating the cached checkout on all servers
+    executing locally: "git ls-remote git@github.com:appliedzetetics/azcams.git master"
+    command finished in 3284ms
+  * executing "if [ -d /var/railsapps/azcams/shared/cached-copy ]; then cd /var/railsapps/azcams/shared/cached-copy && git fetch -q origin && git fetch --tags -q origin && git reset -q --hard 842a05e1130a2f95acb6270b1dd91134ed6a4778 && git clean -q -d -x -f; else git clone -q -b master git@github.com:appliedzetetics/azcams.git /var/railsapps/azcams/shared/cached-copy && cd /var/railsapps/azcams/shared/cached-copy && git checkout -q -b deploy 842a05e1130a2f95acb6270b1dd91134ed6a4778; fi"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 4776ms
+    copying the cached version to /var/railsapps/azcams/releases/20130719191634
+  * executing "cp -RPp /var/railsapps/azcams/shared/cached-copy /var/railsapps/azcams/releases/20130719191634 && (echo 842a05e1130a2f95acb6270b1dd91134ed6a4778 > /var/railsapps/azcams/releases/20130719191634/REVISION)"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 8539ms
+  * executing `deploy:finalize_update'
+    triggering before callbacks for `deploy:finalize_update'
+  * executing `deploy:assets:symlink'
+  * executing "rm -rf /var/railsapps/azcams/releases/20130719191634/public/assets && mkdir -p /var/railsapps/azcams/releases/20130719191634/public && mkdir -p /var/railsapps/azcams/shared/assets && ln -s /var/railsapps/azcams/shared/assets /var/railsapps/azcams/releases/20130719191634/public/assets"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 198ms
+  * executing `bundle:install'
+  * executing "cd /var/railsapps/azcams/releases/20130719191634 && bundle install --gemfile /var/railsapps/azcams/releases/20130719191634/Gemfile --path /var/railsapps/azcams/shared/bundle --deployment --quiet --without development test"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 4404ms
+  * executing "chmod -R -- g+w /var/railsapps/azcams/releases/20130719191634 && rm -rf -- /var/railsapps/azcams/releases/20130719191634/public/system && mkdir -p -- /var/railsapps/azcams/releases/20130719191634/public/ && ln -s -- /var/railsapps/azcams/shared/system /var/railsapps/azcams/releases/20130719191634/public/system && rm -rf -- /var/railsapps/azcams/releases/20130719191634/log && ln -s -- /var/railsapps/azcams/shared/log /var/railsapps/azcams/releases/20130719191634/log && rm -rf -- /var/railsapps/azcams/releases/20130719191634/tmp/pids && mkdir -p -- /var/railsapps/azcams/releases/20130719191634/tmp/ && ln -s -- /var/railsapps/azcams/shared/pids /var/railsapps/azcams/releases/20130719191634/tmp/pids"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 285ms
+    triggering after callbacks for `deploy:update_code'
+  * executing `deploy:assets:precompile'
+    triggering before callbacks for `deploy:assets:precompile'
+  * executing `deploy:assets:update_asset_mtimes'
+  * executing "[ -e /var/railsapps/azcams/shared/assets/manifest* ] && cat /var/railsapps/azcams/shared/assets/manifest* || echo"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 155ms
+ ** Updating mtimes for ~56 assets...
+    servers: ["vds"]
+ ** scp upload #<StringIO:0x00000001cc8ef8> -> /var/railsapps/azcams/TOUCH_ASSETS
+    [vds] /var/railsapps/azcams/TOUCH_ASSETS
+  * scp upload complete
+  * executing "cat /var/railsapps/azcams/TOUCH_ASSETS | while read asset; do touch -c -- \"$asset\"; done && rm -f -- /var/railsapps/azcams/TOUCH_ASSETS"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 298ms
+  * executing "cd -- /var/railsapps/azcams/releases/20130719191634 && bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets RAILS_RELATIVE_URL_ROOT=/var/railsapps assets:precompile"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 52624ms
+  * executing "ls -1 /var/railsapps/azcams/shared/assets/manifest* | wc -l"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 240ms
+  * executing "ls /var/railsapps/azcams/shared/assets/manifest*"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 145ms
+  * executing "ls -x /var/railsapps/azcams/releases"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 170ms
+  * executing "cp -- /var/railsapps/azcams/shared/assets/manifest.yml /var/railsapps/azcams/releases/20130719191634/assets_manifest.yml"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 193ms
+  * executing `deploy:migrate'
+  * executing "cd /var/railsapps/azcams/releases/20130719191634 && bundle exec rake RAILS_ENV=production  db:migrate"
+    servers: ["vds"]
+    [vds] executing command
+ ** [out :: vds] ==  CreateMediaTypes: migrating ===============================================
+ ** [out :: vds] 
+ ** [out :: vds] -- create_table(:media_types)
+ ** [out :: vds] 
+ ** [out :: vds] rake aborted!
+ ** [out :: vds] An error has occurred, all later migrations canceled:
+ ** [out :: vds] 
+ ** [out :: vds] Mysql2::Error: Table 'media_types' already exists: CREATE TABLE `media_types` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `account_id` int(11) NOT NULL, `name` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:243:in `query'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:243:in `block in execute'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_adapter.rb:280:in `block in log'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activesupport-3.2.6/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_adapter.rb:275:in `log'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:243:in `execute'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/mysql2_adapter.rb:211:in `execute'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract/schema_statements.rb:170:in `create_table'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/foreigner-1.4.1/lib/foreigner/connection_adapters/abstract/schema_statements.rb:14:in `create_table'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:432:in `create_table'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:466:in `block in method_missing'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:438:in `block in say_with_time'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:438:in `say_with_time'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:458:in `method_missing'
+ ** [out :: vds] /var/railsapps/az
+ ** [out :: vds] cams/releases/20130719191634/db/migrate/20130709174445_create_media_types.rb:3:in `change'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:407:in `block (2 levels) in migrate'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:407:in `block in migrate'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract/connection_pool.rb:123:in `with_connection'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:389:in `migrate'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:528:in `migrate'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:720:in `block (2 levels) in migrate'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:777:in `call'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:777:in `ddl_transaction'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:719:in `block in migrate'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:700:in `each'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:700:in `migrate'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:570:in `up'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/migration.rb:551:in `migrate'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/railties/databases.rake:153:in `block (2 levels) in <top (required)>'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/task.rb:246:in `call'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-1
+ ** [out :: vds] 0.0.4/lib/rake/task.rb:246:in `block in execute'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/task.rb:241:in `each'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/task.rb:241:in `execute'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/task.rb:184:in `block in invoke_with_call_chain'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/task.rb:177:in `invoke_with_call_chain'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/task.rb:170:in `invoke'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/application.rb:143:in `invoke_task'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/application.rb:101:in `block (2 levels) in top_level'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/application.rb:101:in `each'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/application.rb:101:in `block in top_level'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/application.rb:110:in `run_with_threads'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/application.rb:95:in `top_level'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/application.rb:73:in `block in run'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/application.rb:160:in `standard_exception_handling'
+ ** [out :: vds] /var/railsapps/azcams/shared/bundle/ruby/1.9.1/gems/rake-10.0.4/lib/rake/application.rb:70:in `run'
+ ** [out :: vds] Tasks: TOP => db:migrate
+ ** [out :: vds] (See full trace by running task with --trace)
+    command finished in 7642ms
+*** [deploy:update_code] rolling back
+  * executing "rm -rf /var/railsapps/azcams/releases/20130719191634; true"
+    servers: ["vds"]
+    [vds] executing command
+    command finished in 548ms
+failed: "env PATH=$HOME/.rvm/bin:$PATH sh -c 'cd /var/railsapps/azcams/releases/20130719191634 && bundle exec rake RAILS_ENV=production  db:migrate'" on vds

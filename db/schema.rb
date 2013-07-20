@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711175636) do
+ActiveRecord::Schema.define(:version => 20130719191113) do
 
   create_table "absence_slots", :force => true do |t|
     t.integer  "absence_id"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20130711175636) do
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.integer  "account_id",       :default => 0, :null => false
+    t.string   "salutation"
   end
 
   create_table "clinics", :force => true do |t|
@@ -196,8 +197,10 @@ ActiveRecord::Schema.define(:version => 20130711175636) do
     t.string   "railsvariable"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "class_name"
   end
 
+  add_index "document_fields", ["class_name"], :name => "index_document_fields_on_class_name"
   add_index "document_fields", ["documentfield"], :name => "index_document_fields_on_documentfield"
   add_index "document_fields", ["railsvariable"], :name => "index_document_fields_on_railsvariable"
 
@@ -366,8 +369,10 @@ ActiveRecord::Schema.define(:version => 20130711175636) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.integer  "print_media_id"
+    t.integer  "account_id",                         :null => false
   end
 
+  add_index "print_jobs", ["account_id"], :name => "index_print_jobs_on_account_id"
   add_index "print_jobs", ["user_id"], :name => "index_print_jobs_on_user_id"
 
   create_table "print_media", :force => true do |t|

@@ -45,6 +45,10 @@ class Client < ActiveRecord::Base
   # Derived fields from client table
   #
 
+	def formaladdress
+		[salutation, surname].join ' '
+	end
+	
 	def fullname
 	  "#{forename} #{surname}"
 	end

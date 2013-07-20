@@ -9,6 +9,9 @@ class AllocationTypesController < ApplicationController
 
 	def show
 		@allocation_type = current_user.account.allocation_types.find(params[:id])
+		
+		format.js   { render :partial => 'app/views/allocation_types/ajax_templateinfo', :locals => {:type => @allocation_type}, :content_type => 'text/html' }
+		
 	end
 
 	def edit

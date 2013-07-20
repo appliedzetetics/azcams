@@ -82,11 +82,10 @@ class Episode < ActiveRecord::Base
     # 			allocation type is assessment						Waiting treatment
     # 			allocation type is treatment						In treatment
 
-		lastalloc = self.allocations.last
-
     if self.closed?
 			status << S_CLOSED
     else
+			lastalloc = self.allocations.last
 			if lastalloc.nil? # not allocated
 #				status << S_WAITING
 #				status << S_ASSESSMENT

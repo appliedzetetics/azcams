@@ -26,7 +26,7 @@
   </tr>
   <% if !referral.closed %>
     <% if referral.allocations.count > 0 %>
-      <%= render :collection => referral.allocations, :partial => 'allocation' %>
+      <%= render :collection => referral.allocations.order("ID DESC"), :partial => 'allocation' %>
     <% end %>
   <% else %>
     <td></td>

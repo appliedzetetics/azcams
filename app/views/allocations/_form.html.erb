@@ -1,7 +1,7 @@
-<%= simple_form_for @allocation, :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for @allocation, :html => { :class => 'form-horizontal'} do |f| %>
 	<%= f.input :episode_id, :as => :hidden, :value => @allocation.episode_id %>
 	<%= f.association :allocation_type,
-		:include_blank => false,
+		:include_blank => true,
 		:collection => AllocationType.all.map {|a| [a.description, a.id]},
 		:input_html => { :disabled => !params[:allocation_type].nil?, :class => 'span2' }
 	%>
@@ -10,6 +10,10 @@
 		:include_blank => true,
 		:input_html => { :class => 'span2' }
 	%>
+	<H3>Print tasks <small>check items below to automatically generate print forms</small></h2>
+	<div id="allocation-templates">
+		<%= render :partial => "templates", locals: { templatelist: @templates } %>
+	</div>
 	<div class="form-actions">
   	<%= f.button :submit, "Allocate referral", :class => 'btn btn-primary' %>
 	  <% unless controller.action_name == 'edit' %>

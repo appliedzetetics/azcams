@@ -1,0 +1,11 @@
+<% unless templatelist.nil? %>
+	<div class="control-group">
+		<% templatelist.each do |t| %>
+				<div class="controls">
+					<label class="checkbox">
+						<input type="checkbox" name="template[<%= t.id %>]" id="template[<%= t.id %>]" value=1 checked><%= t.name %>
+					</label>
+				</div>
+		<% end %>
+	</div>	
+<% end %>

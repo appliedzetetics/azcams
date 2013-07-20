@@ -20,7 +20,7 @@
         <td align="center"><i class="icon-<%= allocation_type.is_treatment ? "ok" : "remove" %>"></i></td>
 				<td>
 					<% allocation_type.templates.each do |t| %>
-						<%=  t.name %><br/>
+						<% t.name %><br/>
 					<% end %>
 				</td>
         <td>

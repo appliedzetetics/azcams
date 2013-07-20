@@ -46,6 +46,8 @@ class AllocationsController < ApplicationController
   def edit
 		session[:return_to] ||= request.referer
     @allocation = Allocation.find(params[:id])
+  	@templates = @allocation.allocation_type.templates.all;
+
   end
 
   # POST /allocations
@@ -61,11 +63,12 @@ class AllocationsController < ApplicationController
 
     respond_to do |format|
       if @allocation.save
-		    @allocation.generate_print_jobs_async(current_user)
+				@allocation.processprinttasks(params[:template], current_user) unless params[:template].nil?
 				@episode = @allocation.episode
         @client = @allocation.episode.client
 
-        notice = "Client successfully allocated to #{@allocation.practitioner.fullname}"
+				topractitioner = @allocation.practitioner.nil? ? '' : " to #{@allocation.practitioner.fullname}"
+        notice = "Client successfully allocated#{topractitioner}"
         if (params[:bookappointment])
           format.html { redirect_to new_appointment_path(:allocation_id_new => @allocation), :notice => notice }
         else
@@ -109,4 +112,15 @@ class AllocationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def templatelist
+  	@templates=AllocationType.find(params[:id]).templates.all unless params[:id].blank?
+		logger.debug("#{@templates.count} templates found for allocation_type #{params[:id]}")
+  	respond_to do |format|
+    	format.js { 
+    		render :partial => "templates", locals: { templatelist: @templates } 
+    	}
+		end
+  end
+  
 end

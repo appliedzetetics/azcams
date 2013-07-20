@@ -7,7 +7,8 @@
     <%= link_to '<i class="icon icon-backward"></i>'.html_safe, { :date => (@date.beginning_of_month-1).strftime("%Y-%m-%d") }, :class => 'btn' %>
     <%=h @date.strftime("%B %Y") %>
     <%= link_to '<i class="icon icon-forward"></i>'.html_safe, { :date => (@date.end_of_month+1).strftime("%Y-%m-%d")}, :class => 'btn' %>
-  </h2>  <%= calendar_for @appointments, {
+  </h2>
+  <%= calendar_for @appointments, {
     :year => @date.year,
     :month => @date.month,
     :first_day_of_week => 1,

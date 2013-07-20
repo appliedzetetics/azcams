@@ -3,7 +3,11 @@
   	<h4>Print Queue</h4>
     You have <%= current_user.print_jobs.unprinted.count %> items waiting to be printed; the oldest item
    	was submitted <%= time_ago_in_words(current_user.print_jobs.unprinted.first.created_at) %> ago.<br/>
-  	<%= link_to "Print", download_print_jobs_path, :class => 'btn btn-mini' %>
+		<% MediaType.all.each do |m| %>
+			<% c=current_user.print_jobs.unprinted.by_media_type(m.id).count %>
+			<%= link_to "Print jobs for #{m.name} media (#{c})", print_jobs_download_path(:media_type => m.id), :class => 'btn btn-mini' if c > 0 %>
+		<% end %>
+		<small>(the counts will be updated next time you refresh the page)</small>
 	</div>
 <% end %>
                     

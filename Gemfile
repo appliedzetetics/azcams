@@ -55,7 +55,7 @@ gem 'event-calendar', :require => 'event_calendar'
 gem "watu_table_builder", :require => "table_builder"
 gem 'bootstrap-datepicker-rails'
 gem 'rqrcode-rails3'
-gem "odf-report"
+gem "odf-report", :git => "git://github.com/sandrods/odf-report.git"
 #gem "paperclip", "~> 3.0"
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 #gem "validation_reflection"
@@ -77,4 +77,5 @@ group :development do
 	gem 'faker'
 	gem 'capistrano-deploy', :group => :development, :require => false
 	gem "nifty-generators", :group => :development
+	gem "thin" 
 end
