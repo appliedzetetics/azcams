@@ -25,7 +25,6 @@ class TemplatesController < ApplicationController
   # GET /templates/new.json
   def new
     @template = Template.new
-    @template.account = current_user.account
     
     respond_to do |format|
       format.html # new.html.erb
@@ -42,6 +41,7 @@ class TemplatesController < ApplicationController
   # POST /templates.json
   def create
     @template = Template.new(params[:template])
+    @template.account = current_user.account
 
     respond_to do |format|
       if @template.save
