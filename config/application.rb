@@ -9,6 +9,16 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+# Only attempt update on local machine
+if Rails.env.development?
+  # Update version file from latest git tag
+	File.open('config/version', 'w') do |file|
+  	file.write `git describe --tags --always` # or equivalent
+  end
+end
+          
+config.version = File.read('config/version')
+
 module Pccn
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

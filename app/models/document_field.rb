@@ -9,5 +9,5 @@ class DocumentField < ActiveRecord::Base
 	#
 	def self.by_base_class(b)
 		where(:class_name => c)
-
+	end
 end
