@@ -11,9 +11,8 @@
  *= require_self
  *= require_tree .
  * require bootstrap-cerulean.min
-
  *= require bootstrap_and_overrides
- *= require bootstrap-datepicker
+ *= require bootstrap-datetimepicker
  *= require lazybox
 */
 body {
@@ -26,3 +25,8 @@ body {
 }
 
 h1 { font-size: 20px; font-weight: light; text-align: left; }
+
+.my-inline {display: inline;} 
+
+form.form-inline div.control-group { display: inline-block; }
+form.form-inline div.control-group div.controls { display: inline-block; }

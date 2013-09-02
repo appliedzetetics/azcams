@@ -1,5 +1,5 @@
 <div class="page-header">
-<h1>Appointments calendar <small>for <%= current_user.fullname %></small></h1>
+<h1>Calendar <small>for <%= current_user.fullname %></small></h1>
 </div>
 
 <div class="calendar">
@@ -22,9 +22,18 @@
           <% @practitioner.clinicsforday(day).each do |c| %>
             <thead>
               <th colspan=2>
-
-                <%= @practitioner.absent?(day) ? '<i class="icon-ban-circle"></i>&nbsp;'.html_safe : '' %>
-                <%= link_to "#{@practitioner.initials} #{c.venue.name}", dailyplanner_appointments_path(:date=>day.strftime("%Y-%m-%d")) %>
+								<div class="dropdown">
+	                <%= @practitioner.absent?(day) ? '<i class="icon-ban-circle"></i>&nbsp;'.html_safe : '' %>
+  	              <%= link_to(
+    	            	"#{@practitioner.initials} #{c.venue.name}", 
+      	          	'#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown',
+        	        	remote: true
+          	      ) %>
+        					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        						<li><a tabindex="-1" href="#">Cancel this clinic</a></li>
+        						<li><a tabindex="-1" href="#">Daily planner</a></li>
+									</ul>
+								</div>
               </th>
             </thead>
             <tbody>

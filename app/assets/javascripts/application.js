@@ -15,8 +15,7 @@
 //= require twitter/bootstrap
 //= require jquery-ui
 //= require autocomplete-rails
-//= require bootstrap-datepicker
-//= require bootstrap-datepicker/core
+//= require bootstrap-datetimepicker
 //= require jquery_nested_form
 //= require lazybox
 //= require_tree .
@@ -38,34 +37,13 @@ $(document).ready(function() {
 })
 
 
-$(function() {
-  // when the #allocation_type field changes
-  $("#allocation_allocation_type_id").change(function() {
-    // make a POST call and replace the content
-    var allocation_type = this.value;
-    if(allocation_type == "") allocation_type="0";
-    jQuery.get(
-      '/allocations/' + allocation_type + '/templatelist', 
-      function(data, success) {
-        $('#allocation-templates').html(data);
-      },
-      'html'
-    );
-
-    return false;
-  });
-
-});
-
-/*
+  
 $(function() {
     /* Convenience for forms or links that return HTML from a remote ajax call.
     The returned markup will be inserted into the element id specified.
-    
+    */
     $('form[data-update-target]').live('ajax:success', function(evt, data) {
         var target = $(this).data('update-target');
         $('#' + target).html(data);
     });
 });
-
-*/

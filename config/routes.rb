@@ -60,13 +60,22 @@ Pccn::Application.routes.draw do
   end
 
   resources :appointments do
-    collection do
+    member do
+	  	post 'updatestatus/:id', :action => 'updatestatus', :as => 'updatestatus'
+
+		end    
+  end
+
+	resources :slot_dates do
+	  collection do
       get :calendar
       get :dailyplanner
+		end
+		member do
       post :book
       post :rebook
     end
-  end
+	end
 
   resources :allocations do
 		member do

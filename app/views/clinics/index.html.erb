@@ -15,6 +15,7 @@
       <th><%= model_class.human_attribute_name(:practitioner) %></th>
       <th><%= model_class.human_attribute_name(:venue) %></th>
       <th><%= model_class.human_attribute_name(:day_of_week) %></th>
+      <th>Times</th>
       <th colspan=4><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -25,15 +26,17 @@
         <td><%= clinic.venue.name %></td>
         <td><%= clinic.dayname %></td>
         <td>
-          <%= link_to t('.show', :default => t("helpers.links.show")),
-                      clinic_path(clinic), :class => 'btn btn-mini' %>
-				</td>
+					<% clinic.slots.each do |s| %>
+						<%= s.start_time %> - <%= s.start_time + s.duration.minutes %></br>
+					<% end %>
+        
+        </td>
 				<td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_clinic_path(clinic), :class => 'btn btn-mini' %>
 
 				</td>
-      </tr>
+			</tr>
     <% end %>
   </tbody>
 </table>

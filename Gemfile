@@ -43,8 +43,6 @@ gem 'therubyracer'
 gem 'less-rails-bootstrap'
 gem 'simple_form'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-#gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => '2.1-stable'
-#gem 'formtastic-bootstrap', :git => 'https://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
 
 gem 'bootstrap-will_paginate'
 gem 'devise'
@@ -70,6 +68,11 @@ gem "pdfkit"
 gem "font-awesome-rails"
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem 'validates_timeliness', '~> 3.0'
+gem 'jquery-tablesorter'
+gem 'datetimepicker-rails', :require => 'datetimepicker-rails', :git => 'git://github.com/zpaulovics/datetimepicker-rails.git'
+gem 'jquery-modal-rails'
+
 
 group :development do
   gem "rails-erd"

@@ -1,9 +1,11 @@
 <div class="page-header">
   <h1>New appointment<br>
     <small>
-      <%= @appointment.allocation.description %>
-      with <%= @appointment.allocation.practitioner.fullname %>
-      for <%= @appointment.allocation.episode.client.fullname %>
+      <%= @allocation.description %>
+      <% unless @allocation.practitioner.nil? %>
+	      with <%= @allocation.practitioner.fullname %>
+	    <% end %>
+      for <%= @allocation.episode.client.fullname %>
     </small>
   </h1>
 </div>

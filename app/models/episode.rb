@@ -10,12 +10,14 @@ class Episode < ActiveRecord::Base
 
 	S_ALLOCATED = "Allocated"
 	S_UNALLOCATED = "Unallocated"
-	S_BOOKED = "Booked"
+	S_UNDERWAY = "in progress"
+	S_PENDING = "pending"
 	S_WAITING = "Waiting"
 	S_WAITING_ALLOC = "Waiting allocation"
 	S_ASSESSMENT = "assessment"
 	S_TREATMENT = "treatment"
 	S_CLOSED = "Closed"
+	S_COMPLETE = "complete"
 
   def create_file_no(a)
     self.file_no = sprintf("%02d/%04d", self.referral_date.year.modulo(100), FileNo.next_file_no(a))
@@ -28,6 +30,11 @@ class Episode < ActiveRecord::Base
   def lastallocation
     self.allocations.last
   end
+
+	def currentallocation
+		self.allocations.last
+	end
+	
 
 	def practitioner
   	if self.allocated?
@@ -71,13 +78,14 @@ class Episode < ActiveRecord::Base
     startdate
   end
 
+
   def waitingliststatus
 		status = []
     #
     # Allocation sequence             	   					Status
     # Episode created (unallocated)     	 					Waiting assessment
     # Episode allocated no appointments  						Allocated $allocationtype
-    # Episode allocated appointments due	  				Booked $allocationtype
+    # Episode allocated appointments due	  				$allocationtype in progress
     # Episode allocated appointments past not DNA
     # 			allocation type is assessment						Waiting treatment
     # 			allocation type is treatment						In treatment
@@ -86,32 +94,32 @@ class Episode < ActiveRecord::Base
 			status << S_CLOSED
     else
 			lastalloc = self.allocations.last
-			if lastalloc.nil? # not allocated
+			if lastalloc.nil? # not allocated				# Not allocated - status is "Unallocated"
 #				status << S_WAITING
 #				status << S_ASSESSMENT
 				status << S_UNALLOCATED
 			else # it's allocated
-				if lastalloc.appointments.last.nil? 	# no appointments
+				if lastalloc.appointments.last.nil? 	# Allocated but no appointments - status is "Waiting <allocation type>"
 					status << S_WAITING
-					status << lastalloc.description				# so status is "Allocated $allocationtype"
-				else 																	# appointments
-					a = lastalloc.appointments.last	  	# in future? If so, still allocated
-					if a.appointment_start.future?
-						status << S_BOOKED
-						status << lastalloc.description				# so status is "Allocated $allocationtype"
-					else																		# Appointment in past
-						if lastalloc.is_assessment?
-							status << S_WAITING
-							status << S_TREATMENT
+					status << lastalloc.description			
+				else 																	# Allocated with appointments
+					a = lastalloc.appointments.first  	
+					if a.appointment_start.future?			# Last appointment in future? If so, still allocated
+						status << lastalloc.description		# so status is "$allocationtype in progress/pending"
+						unless lastalloc.appointments.last.appointment_date.future?	# there have been earlier appointments
+							status << S_UNDERWAY
 						else
-							status << "In #{S_TREATMENT}"
+							status << S_PENDING
 						end
+					else																# Appointment in past
+						status << lastalloc.description
+						status << S_COMPLETE
 					end
 
 				end
 			end
     end
-    status.join(' for ')
+    status.join(' ')
   end
 
   def is_allocated_no_appointment?

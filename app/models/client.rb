@@ -42,6 +42,21 @@ class Client < ActiveRecord::Base
 			where("(allocation_types.is_assessment > 0 AND appointments.id is not null) OR (allocation_types.is_treatment > 0 AND appointments.id IS NULL)").
 			order("greatest(coalesce(allocations.created_at, '0000-00-00'), coalesce(appointment_date, '0000-00-00'))")
 
+	def currentepisode
+		self.episodes.last
+	end
+	
+
+	def phase
+		#
+		# Latest allocation
+		#
+		state = self.currentepisode.currentallocation.allocation_type
+			
+	end
+	
+	
+	
   # Derived fields from client table
   #
 

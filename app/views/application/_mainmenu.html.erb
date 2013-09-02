@@ -12,27 +12,33 @@
       </ul>
   </li>
 
-  <li><%= link_to "Appointments", "/appointments/calendar"  %></li>
-  <li><%= link_to "Printing/emails", "/messages"  %></li>
+  <li><%= link_to "Appointments", "/slot_dates/calendar"  %></li>
 
   <% if current_user.admin? %>
-  <li><%= link_to "User accounts", "/users"  %></li>
-
-    <li class="dropdown">
+		<li class="dropdown">
       <a href="#"
         class="dropdown-toggle"
         data-toggle="dropdown">
-        Maintenance
+        Administration
         <b class="caret"></b>
       </a>
         <ul class="dropdown-menu">
-          <li><%= link_to "Venues", "/venues"  %></li>
-          <li><%= link_to "Clinics & slots", "/clinics"  %></li>
-          <li><%= link_to "Allocation types", "/allocation_types"  %></li>
-          <li><%= link_to "Appointment status entries", "/appointment_statuses"  %></li>
-          <li><%= link_to "Print templates", "/templates"  %></li>
+          <li><%= link_to "Reports", "/admin/reports" %>
+          <li><%= link_to "User accounts", "/users"  %></li>
+          <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">
+              Maintenance
+              <b class="caret"></b>
+            </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Venues", "/venues"  %></li>
+                <li><%= link_to "Clinics & slots", "/clinics"  %></li>
+                <li><%= link_to "Allocation types", "/allocation_types"  %></li>
+                <li><%= link_to "Appointment status entries", "/appointment_statuses"  %></li>
+                <li><%= link_to "Print templates", "/templates"  %></li>
 
+              </ul>
+          </li>
         </ul>
-    </li>
-  <% end %>
+    <% end %>
 </ul>

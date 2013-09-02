@@ -19,9 +19,8 @@ class Practitioner < User
     [self.forename, self.surname ].join ' '
   end
 
-	def clinicsforday(date)
-	  Clinic.where("clinics.day_of_week = dayofweek(?) - 1", date).
-      where("practitioner_id=?", self)
+	def this_days_clinic(date)
+	  Clinic.where("clinics.day_of_week = dayofweek(?) - 1", date).where("practitioner_id=?", self)
 	end
 
 	def absent?(date)

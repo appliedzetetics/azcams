@@ -4,7 +4,7 @@ module AppointmentsHelper
 	  if a.allocation.allocation_type.is_assessment
 			"<span class=\"label label-warning\">ia</span>".html_safe
 		else
-			"<span class=\"label label-info\">#{a.sequence}</span>".html_safe
+			"<span class=\"label label-info\"><small>#{a.sequence}</small></span>".html_safe
 		end
   end
 

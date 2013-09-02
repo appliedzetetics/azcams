@@ -35,7 +35,7 @@ class AppointmentsController < ApplicationController
     @appointment.save!
 
 		respond_to do |format|
-			format.js
+			format.js { render partial: 'appointment', locals: { appointment: @appointment } }
 		end
 
   end
@@ -53,16 +53,19 @@ class AppointmentsController < ApplicationController
   # GET /appointments/new
   # GET /appointments/new.json
   def new
+    @allocation = Allocation.find(params[:allocation_id]) if (params[:allocation_id])
+    @date = params.has_key?(:date) ? Date.strptime(params[:date]) : Date.today.advance(days: 1)
+		@appointments = current_user.account.clinics.joins(:practitioner).order("users.surname, users.forename")	
     @appointment = Appointment.new
+    @appointment.allocation = @allocation
     #
-    # We get the allocation ID in as a parameter (in :allocation_id_new), from which
+    # We get the allocation ID in as a parameter (in :allocation_id), from which
     # we can derive the appointment type, the practitioner, client, preferred venue, etc.
     #
     if params[:notification]
       flash[:activity] = NOTIFICATIONTYPE[params[:notification]]
     end
-    @allocation = Allocation.find(params[:allocation_id]) if (params[:allocation_id])
-
+		
     practitioners = []
     venues = []
     # any practitioners selected in params?
@@ -74,7 +77,7 @@ class AppointmentsController < ApplicationController
 
     venues = params[:venue]
 
-    @appointments = Appointment.find_appointment_slots(@allocation, practitioners, venues)
+#    @appointments = Appointment.find_appointment_slots(@allocation, practitioners, venues)
 
 		@appointment.allocation = @allocation
 
@@ -133,6 +136,8 @@ class AppointmentsController < ApplicationController
       if @appointment.update_attributes(params[:appointment])
         format.html { redirect_to @appointment.allocation.episode.client, :notice => 'Appointment was successfully updated.' }
         format.json { head :no_content }
+        format.js 	{ render partial: 'appointment', locals: { appointment: @appointment } }
+        
       else
         format.html { render :action => "edit" }
         format.json { render :json => @appointment.errors, :status => :unprocessable_entity }
@@ -140,11 +145,29 @@ class AppointmentsController < ApplicationController
     end
   end
 
+	def updatestatus
+    @appointment = Appointment.find(params[:id])
+    @status = AppointmentStatus.find(params[:status])
+    
+    @appointment.appointment_status = @status
+    respond_to do |format|
+      if @appointment.update_attributes(params[:appointment])
+#        format.html { redirect_to '/appointments/calendar', :notice => 'Appointment was successfully updated.' }
+        format.js 	{ render partial: 'updateappointment', locals: { appointment: @appointment } }
+        
+      else
+        format.html { render :action => "edit" }
+        format.json { render :json => @appointment.errors, :status => :unprocessable_entity }
+      end
+    end
+    
+	end
+	
   # DELETE /appointments/1
   # DELETE /appointments/1.json
   def destroy
     @appointment = Appointment.find(params[:id])
-    @episode = @appointment.allocation.episode
+		
     @appointment.destroy
 
     respond_to do |format|

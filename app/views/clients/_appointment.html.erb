@@ -2,7 +2,7 @@
   <td></td>
 	<td class="appointment" colspan=1><i class="icon-time"></i>&nbsp;Appointment <%= appointment.appointment_date %> <%= appointment.appointment_time %></td>
 	<td><%= [appointment.status, appointment.outcome].grep(/./).join "/" %></td>
-	<td>
+	<td style="white-space: nowrap;">
 		<%= link_to "<i class=\"icon-edit\"></i> Modify".html_safe, edit_appointment_path(appointment), :class => 'btn btn-mini' %>
 		<%= link_to "<i class=\"icon-remove-sign\"></i> Delete".html_safe,
 								appointment_path(appointment),
@@ -11,5 +11,5 @@
 								:class => 'btn btn-mini btn-danger' if current_user.admin?
 		%>
 	</td>
-	<td></td>
+	<td colspan=2></td>
 </tr>

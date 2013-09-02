@@ -57,13 +57,15 @@ SimpleForm.setup do |config|
   end
 
   config.wrappers :bootstrapchild, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
-    b.use :html5
-    b.use :placeholder
-    b.wrapper :tag => 'div', :class => 'controls-inline' do |ba|
-      ba.use :input
-      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
-      ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
-    end
+#    b.use :html5
+#    b.use :placeholder
+#    b.wrapper :tag => 'div', :class => 'controls-inline' do |ba|
+#      ba.use :input, :wrap_with => { :class => 'inline' }
+#      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+#      ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
+#    end
+			b.use :placeholder
+		  b.use :label_input
   end
 
   config.wrappers :prepend, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
@@ -186,11 +188,19 @@ SimpleForm.setup do |config|
   # Cache SimpleForm inputs discovery
   # config.cache_discovery = !Rails.env.development?
   
-  config.wrappers :inline, :tag => 'div', :class => 'controls inline-inputs' do |b|
-  	b.use :placeholder
-  	b.use :input
-	end
-
+#  config.wrappers :inline, :tag => 'div', :class => 'controls inline-inputs' do |b|
+#  	b.use :placeholder
+#  	b.use :input
+  config.wrappers :inline, :class => 'control-group inline', :error_class => 'error' do |b| 
+    b.use :html5 
+    b.use :placeholder 
+    b.use :label, :wrap_with => { :class => 'inline' } 
+    b.wrapper :tag => 'div', :class => 'controls inline' do |ba| 
+      ba.use :input, :wrap_with => { :class => 'inline' } 
+      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' } 
+      ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' } 
+    end 
+  end
 
   
 end

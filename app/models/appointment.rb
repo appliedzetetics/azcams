@@ -1,17 +1,29 @@
 class Appointment < ActiveRecord::Base
   belongs_to :allocation
 	belongs_to :appointment_status
-	belongs_to :slot
+	belongs_to :slot_date
+	has_and_belongs_to_many :templates
 
-	attr_accessible :allocation_id, :appointment_date, :appointment_time, :slot_id, :outcome, :counted, :slot, :allocation, :appointment_status_id
+	attr_accessible :allocation_id, :outcome, :counted, :slot, :allocation, :appointment_status_id, :slot_date_id
 
 	validates :appointment_date, presence: true
 	validates :appointment_time, presence: true
 
+	validates_date :appointment_date
 
 	has_event_calendar :start_at_field => :appointment_start, :end_at_field => :appointment_end
 
-  scope :account, lambda { |a| joins(:allocation => :practitioner).where("users.account_id=?", a) }
+
+#  default_scope order('appointment_date DESC, appointment_time DESC')
+  
+#  scope :account, lambda { |a| joins(:allocation => :practitioner).where("users.account_id=?", a) }
+
+	def self.freeappointments(allocation_type, practitioner=nil,venue=nil)
+		Appointment.where(allocation_type: allocation_type).where(allocation: nil)
+	
+	end
+
+
 
   #
   # Find appointment slots
@@ -21,7 +33,7 @@ class Appointment < ActiveRecord::Base
   # which appointments (or virtual appointments) already exist, and returning the
   # result in an array.
   #
-  def self.find_appointment_slots(allocation, practitioner, venue)
+  def self.available_appointments(allocation, practitioner, venue)
     search_start = Date.today
     search_end = search_start + 3.weeks
 
@@ -66,7 +78,9 @@ class Appointment < ActiveRecord::Base
     return appointments
   end
 
-
+	#
+	# Virtual fields
+	#
 	def status
 		unless self.appointment_status.nil?
 			self.appointment_status.description
@@ -75,6 +89,14 @@ class Appointment < ActiveRecord::Base
 
 	def allocation_type
 	  self.allocation.description
+	end
+	
+	def appointment_date
+		self.slot_date.appointment_date
+	end
+	
+	def appointment_time
+		self.slot_date.slot.start_time
 	end
 
 	def fullname
@@ -107,23 +129,29 @@ class Appointment < ActiveRecord::Base
 	#
 	def sequence
 		unless self.id.nil? # a nil ID means a virtual "anticipated" appointment
-			seq=Appointment.
+			#
+			# Gets a count of the number of appointments for this allocation prior to this
+			# appointment's date
+			seq=Appointment.joins(:slot_date).
 				where("allocation_id=?", self.allocation_id).
-				where("appointment_date<?",self.appointment_date).
+				where("appointment_date<?",self.slot_date.appointment_date).
 				where(:counted => true).
 				count + 1
       logger.debug "appointment.sequence: non-virtual appointment #{self.id} = #{seq}"
       seq
-		else # is a virtual appointment
-			lastappointment = Appointment.
-				where("allocation_id=?", self.allocation_id).
-				last
+		else # is a pencilled-in appointment
+		
+			#
+			# Find the last actual appointment in this sequence
+			#
+			lastappointment = Appointment.where("allocation_id=?", self.allocation_id).last
 			#
 			# OK, we know when our last appointment for this allocation was. Now let's count the intervening
 			# interruptions that might exist between then and now
 			#
 
 			# count absences and other appts
+			
 
 			# count weeks between last appt and this one
 			s = (self.appointment_date - lastappointment.appointment_date).to_i / 7
@@ -137,7 +165,7 @@ class Appointment < ActiveRecord::Base
 	end
 
 	def div_id
-  	"appt#{self.appointment_date.mjd}#{self.appointment_time.to_i}"
+  	"appt#{self.slot_date.appointment_date.mjd}#{self.appointment_time.to_i}"
   end
 
 end

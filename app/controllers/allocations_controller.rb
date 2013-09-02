@@ -30,12 +30,13 @@ class AllocationsController < ApplicationController
   # GET /allocations/new
   # GET /allocations/new.json
   def new
+		
     @allocation = Allocation.new
-    @practitioners = Practitioner.account(current_user.account)
     @allocation.episode = Episode.find(params[:episode_id])
     @allocation.allocation_type_id = params[:allocation_type]
     @allocation.appointments.build
 
+#		@available_appointments = SlotDate.available_appointments.paginate :page => params[:page], :per_page => 16
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @allocation }
@@ -70,7 +71,7 @@ class AllocationsController < ApplicationController
 				topractitioner = @allocation.practitioner.nil? ? '' : " to #{@allocation.practitioner.fullname}"
         notice = "Client successfully allocated#{topractitioner}"
         if (params[:bookappointment])
-          format.html { redirect_to new_appointment_path(:allocation_id_new => @allocation), :notice => notice }
+          format.html { redirect_to new_appointment_path(:allocation_id => @allocation), :notice => notice }
         else
           format.html { redirect_to Client.find(@allocation.episode.client_id), :notice => notice }
         end
@@ -114,6 +115,17 @@ class AllocationsController < ApplicationController
   end
   
   def templatelist
+  	@templates=AllocationType.find(params[:id]).templates.all unless params[:id].blank?
+		logger.debug("#{@templates.count} templates found for allocation_type #{params[:id]}")
+  	respond_to do |format|
+    	format.js { 
+    		render :partial => "templates", locals: { templatelist: @templates } 
+    	}
+		end
+  end
+
+  def appointmentlist
+
   	@templates=AllocationType.find(params[:id]).templates.all unless params[:id].blank?
 		logger.debug("#{@templates.count} templates found for allocation_type #{params[:id]}")
   	respond_to do |format|

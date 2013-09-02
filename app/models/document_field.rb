@@ -8,6 +8,6 @@ class DocumentField < ActiveRecord::Base
 	# chain stretches.
 	#
 	def self.by_base_class(b)
-		where(:class_name => c)
+		where(:class_name => b)
 	end
 end

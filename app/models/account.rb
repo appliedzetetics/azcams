@@ -8,6 +8,8 @@ class Account < ActiveRecord::Base
   has_many :clients
   has_many :templates
   has_many :allocation_types
+	has_many :appointment_statuses
+  has_many :clinics, :through => :practitioners
 
   def adminuser
     self.user.fullname

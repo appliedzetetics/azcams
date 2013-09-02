@@ -12,13 +12,6 @@
 		<th>Status</th>
   </thead>
   <tbody>
-  	<%
-  		@episodes.each do |e|
-  			if e == episodes.first and !e.closed? %>
-  				<%= render :partial => 'firstreferral', :locals => { :referral => e } %>
-  			<% else %>
-  				<%= render :partial => 'prevreferral', :locals => { :referral => e } %>
-  			<% end
-  	  end %>
+		<%= render :partial => 'episode', :collection => @episodes, :locals => { :latestepisode => @episodes.first } %>
   </tbody>
 </table>

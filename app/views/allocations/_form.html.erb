@@ -8,11 +8,12 @@
 	<%= f.association :practitioner,
 		:collection => Practitioner.account(current_user.account).map {|a| [a.fullname, a.id]},
 		:include_blank => true,
+		:hint => "(optional - you can select a practitioner when booking an appointment)",
 		:input_html => { :class => 'span2' }
 	%>
 	<H3>Print tasks <small>check items below to automatically generate print forms</small></h2>
 	<div id="allocation-templates">
-		<%= render :partial => "templates", locals: { templatelist: @templates } %>
+		<%= render :partial => "templates", locals: { templatelist: @template} %>
 	</div>
 	<div class="form-actions">
   	<%= f.button :submit, "Allocate referral", :class => 'btn btn-primary' %>

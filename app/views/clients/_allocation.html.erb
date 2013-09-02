@@ -9,12 +9,17 @@ to <%= allocation.practitioner.initials %>
 <% end %>
 	for <%= allocation.description %></td>
 <td colspan=2>
-  <%= link_to(
-	  	"<i class=\"icon-time\"></i>&nbsp;Book&nbsp;appt".html_safe,
-  	  new_appointment_path(:allocation_id => allocation),
-    	:class => 'btn btn-mini'
-    )
-	%>
+	<% if 
+		allocation == latestallocation and
+		allocation.defaultappointmentcount > 0 
+	%> 
+	  <%= link_to(
+		  	"<i class=\"icon-time\"></i>&nbsp;Book&nbsp;appt".html_safe,
+  		  new_appointment_path(:allocation_id => allocation),
+    		:class => 'btn btn-mini'
+	    )
+		%>
+	<% end %>
 </td>
 <td>
   <%= link_to(
@@ -27,4 +32,4 @@ to <%= allocation.practitioner.initials %>
   %>
 </td>
 </tr>
-<%= render :collection => allocation.appointments, :partial => 'appointment' %>
+<%= render :collection => allocation.appointments, :partial => 'appointment', :locals => { :lastappointment => allocation.appointments.last } %>

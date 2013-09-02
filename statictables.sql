@@ -1,53 +1,31 @@
--- MySQL dump 10.13  Distrib 5.5.24, for debian-linux-gnu (x86_64)
---
--- Host: localhost    Database: pccn_development
--- ------------------------------------------------------
--- Server version	5.5.24-0ubuntu0.12.04.1
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `venues`
---
-
-DROP TABLE IF EXISTS `venues`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `venues` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `address` text,
-  `postcode` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `encrypted_password` varchar(255) NOT NULL DEFAULT '',
+  `reset_password_token` varchar(255) DEFAULT NULL,
+  `reset_password_sent_at` datetime DEFAULT NULL,
+  `remember_created_at` datetime DEFAULT NULL,
+  `sign_in_count` int(11) DEFAULT '0',
+  `current_sign_in_at` datetime DEFAULT NULL,
+  `last_sign_in_at` datetime DEFAULT NULL,
+  `current_sign_in_ip` varchar(255) DEFAULT NULL,
+  `last_sign_in_ip` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `surname` varchar(255) NOT NULL,
+  `forename` varchar(255) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  `admin` tinyint(1) DEFAULT '0',
+  `male` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_users_on_email` (`email`),
+  UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `venues`
---
-
-LOCK TABLES `venues` WRITE;
-/*!40000 ALTER TABLE `venues` DISABLE KEYS */;
-INSERT INTO `venues` VALUES (1,'St. Oswalds',NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `venues` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `practitioner_types`
---
-
-DROP TABLE IF EXISTS `practitioner_types`;
+INSERT INTO `users` VALUES (1,'stephenallsopp@gmail.com','$2a$10$4DKCaCreddp.dvmCnKB.7.44VyCpAmBYKaLvOc9oCaq547SWRQsA2',NULL,NULL,'2013-07-01 10:26:29',51,'2013-07-08 07:47:43','2013-07-06 21:13:22','192.168.1.66','192.168.1.66','2012-06-23 18:53:16','2013-07-08 07:47:43','Allsopp','Stephen','Mr',1,1,1),(8,'sue@pccn.org.uk','',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00','2012-08-27 15:38:45','Owens','Sue','Mrs',1,0,0),(9,'stephen@pccn.org.uk','$2a$10$/85kzqq8OJe2mUMokjzmVOtJJNirc3x9UywUcs3AS7v.p7IWOQEkW',NULL,NULL,NULL,3,'2012-08-27 21:10:28','2012-08-27 17:05:17','192.168.1.66','192.168.1.66','0000-00-00 00:00:00','2012-08-27 21:10:28','Smithers','Stephen','Mr',1,0,1),(10,'noeleen@pccn.org.uk','',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00','Evans','Noeleen','Mrs',1,0,0),(11,'tracey@pccn.org.uk','',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00','Dixon','Tracey','Mrs',1,0,0),(12,'roger@pccn.org.uk','',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00','James','Roger','Mr',1,0,1),(13,'julie@pccn.org.uk','',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00','Rowlands','Julie','Mrs',1,0,0),(15,'tempuscat@googlemail.com','$2a$10$FrxyVG1Qt3bVC65biGgY.Oim3xjqkA/KIfgSWAnXfQuctXb2U3x6m',NULL,NULL,NULL,2,'2012-07-08 22:17:00','2012-07-08 22:13:14','192.168.1.66','127.0.0.1','2012-07-08 22:12:41','2012-07-08 22:17:00','Allsopp','Imogen',NULL,2,0,0);
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `practitioner_types` (
@@ -58,138 +36,48 @@ CREATE TABLE `practitioner_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `practitioner_types`
---
-
-LOCK TABLES `practitioner_types` WRITE;
-/*!40000 ALTER TABLE `practitioner_types` DISABLE KEYS */;
 INSERT INTO `practitioner_types` VALUES (1,'Counsellor','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'Eating Disorders Nurse','0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,'EMDR Practitioner','0000-00-00 00:00:00','0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `practitioner_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `practitioners`
---
-
-DROP TABLE IF EXISTS `practitioners`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `practitioners` (
+CREATE TABLE `message_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `telephone` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `is_email` tinyint(1) NOT NULL DEFAULT '0',
+  `is_printable` tinyint(1) NOT NULL DEFAULT '0',
+  `is_phone` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `practitioners`
---
-
-LOCK TABLES `practitioners` WRITE;
-/*!40000 ALTER TABLE `practitioners` DISABLE KEYS */;
-INSERT INTO `practitioners` VALUES (7,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00',13),(8,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00',10),(9,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00',12),(10,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00',1),(12,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00',8),(13,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00',11),(14,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00',15);
-/*!40000 ALTER TABLE `practitioners` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `practitioner_types_practitioners`
---
-
-DROP TABLE IF EXISTS `practitioner_types_practitioners`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `practitioner_types_practitioners` (
-  `practitioner_type_id` int(11) DEFAULT NULL,
-  `practitioner_id` int(11) DEFAULT NULL,
-  KEY `practitioner_types_practitions_practitioner_type_id` (`practitioner_type_id`),
-  KEY `practitioner_types_practitions_practitioner_id` (`practitioner_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `practitioner_types_practitioners`
---
-
-LOCK TABLES `practitioner_types_practitioners` WRITE;
-/*!40000 ALTER TABLE `practitioner_types_practitioners` DISABLE KEYS */;
-INSERT INTO `practitioner_types_practitioners` VALUES (1,1),(3,1),(1,2),(1,3),(1,4),(1,5),(1,6);
-/*!40000 ALTER TABLE `practitioner_types_practitioners` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `clinics`
---
-
-DROP TABLE IF EXISTS `clinics`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `clinics` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `practitioner_id` int(11) DEFAULT NULL,
-  `venue_id` int(11) DEFAULT NULL,
-  `effective_from` date DEFAULT NULL,
-  `day_of_week` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_clinics_on_practitioner_id` (`practitioner_id`),
-  KEY `index_clinics_on_venue_id` (`venue_id`),
-  CONSTRAINT `clinics_practitioner_id_fk` FOREIGN KEY (`practitioner_id`) REFERENCES `practitioners` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `clinics_venue_id_fk` FOREIGN KEY (`venue_id`) REFERENCES `venues` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `clinics`
---
-
-LOCK TABLES `clinics` WRITE;
-/*!40000 ALTER TABLE `clinics` DISABLE KEYS */;
-INSERT INTO `clinics` VALUES (3,10,1,'2009-07-01',1,'0000-00-00 00:00:00','0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `clinics` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `slots`
---
-
-DROP TABLE IF EXISTS `slots`;
+INSERT INTO `message_types` VALUES (1,'Email',1,0,0,'2012-07-22 20:02:09','2012-07-22 20:02:09'),(2,'Letter',0,1,0,'2012-07-22 20:02:09','2012-07-22 20:02:09'),(3,'Phone call',0,0,1,'2012-07-22 20:02:09','2012-07-22 20:02:09');
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `slots` (
+CREATE TABLE `allocation_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `clinic_id` int(11) DEFAULT NULL,
-  `start_time` time DEFAULT NULL,
+  `description` varchar(255) NOT NULL,
+  `is_assessment` tinyint(1) NOT NULL DEFAULT '0',
+  `is_treatment` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_slots_on_clinic_id` (`clinic_id`),
-  CONSTRAINT `slots_clinic_id_fk` FOREIGN KEY (`clinic_id`) REFERENCES `clinics` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+  `default_appointment_count` int(11) NOT NULL DEFAULT '1',
+  `account_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `slots`
---
-
-LOCK TABLES `slots` WRITE;
-/*!40000 ALTER TABLE `slots` DISABLE KEYS */;
-INSERT INTO `slots` VALUES (6,3,'09:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00'),(7,3,'10:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00'),(8,3,'11:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00'),(9,3,'13:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00'),(10,3,'14:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `slots` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2012-07-14 11:13:44
+INSERT INTO `allocation_types` VALUES (1,'IA',1,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',1,1),(2,'Therapy',0,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',6,1),(3,'Eating disorders service',0,1,'2012-09-11 12:06:13','2012-09-11 12:06:13',1,1),(4,'Therapy (single session)',0,1,'2012-09-11 12:07:00','2012-09-11 12:07:00',1,1),(5,'Opt-in letter',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',0,1);
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `appointment_statuses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) NOT NULL,
+  `is_dna` tinyint(1) NOT NULL,
+  `is_cancellation` tinyint(1) NOT NULL,
+  `is_attended` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `account_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `appointment_statuses` VALUES (1,'Attended',0,0,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',1),(2,'DNA',1,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',1),(3,'Cancelled (client)',0,1,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',1),(4,'Cancelled (practitioner)',0,1,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',1);

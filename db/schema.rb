@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130720112146) do
+ActiveRecord::Schema.define(:version => 20130805114545) do
 
   create_table "absence_slots", :force => true do |t|
     t.integer  "absence_id"
@@ -121,19 +121,33 @@ ActiveRecord::Schema.define(:version => 20130720112146) do
     t.integer  "account_id"
   end
 
+  create_table "appointment_statuses_templates", :id => false, :force => true do |t|
+    t.integer "appointment_status_id"
+    t.integer "template_id"
+  end
+
+  add_index "appointment_statuses_templates", ["appointment_status_id"], :name => "index_appointment_statuses_templates_on_appointment_status_id"
+  add_index "appointment_statuses_templates", ["template_id"], :name => "index_appointment_statuses_templates_on_template_id"
+
   create_table "appointments", :force => true do |t|
     t.integer  "allocation_id"
-    t.date     "appointment_date",      :null => false
-    t.time     "appointment_time",      :null => false
     t.string   "outcome"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
     t.integer  "appointment_status_id"
-    t.integer  "slot_id"
     t.boolean  "counted"
+    t.integer  "slot_date_id",          :null => false
   end
 
   add_index "appointments", ["allocation_id"], :name => "index_appointments_on_allocation_id"
+
+  create_table "appointments_templates", :id => false, :force => true do |t|
+    t.integer "appointment_id"
+    t.integer "template_id"
+  end
+
+  add_index "appointments_templates", ["appointment_id"], :name => "index_appointments_templates_on_appointment_id"
+  add_index "appointments_templates", ["template_id"], :name => "index_appointments_templates_on_template_id"
 
   create_table "clients", :force => true do |t|
     t.string   "file_no"
@@ -295,9 +309,6 @@ ActiveRecord::Schema.define(:version => 20130720112146) do
 
   add_index "ideas", ["user_id"], :name => "index_ideas_on_user_id"
 
-  create_table "mdays", :primary_key => "mday", :force => true do |t|
-  end
-
   create_table "media_types", :force => true do |t|
     t.integer  "account_id", :null => false
     t.string   "name"
@@ -419,12 +430,20 @@ ActiveRecord::Schema.define(:version => 20130720112146) do
 
   add_index "settings", ["tag"], :name => "index_settings_on_tag", :unique => true
 
+  create_table "slot_dates", :force => true do |t|
+    t.date     "appointment_date",   :null => false
+    t.integer  "slot_id",            :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.boolean  "single_appointment"
+  end
+
   create_table "slots", :force => true do |t|
     t.integer  "clinic_id"
     t.time     "start_time"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.time     "duration"
+    t.integer  "duration"
   end
 
   add_index "slots", ["clinic_id"], :name => "index_slots_on_clinic_id"
