@@ -1,7 +1,7 @@
 require 'capistrano/ext/multistage'
 require "bundler/capistrano" 
 
-set :stages, ["staging", "production"]
+set :stages, [ "production"]
 set :default_stage, "production"
 
 set :application, "azcams"
