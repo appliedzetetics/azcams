@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805114545) do
+ActiveRecord::Schema.define(:version => 20131021114454) do
 
   create_table "absence_slots", :force => true do |t|
     t.integer  "absence_id"
@@ -110,6 +110,16 @@ ActiveRecord::Schema.define(:version => 20130805114545) do
 
   add_index "allocations", ["episode_id"], :name => "index_allocations_on_episode_id"
   add_index "allocations", ["practitioner_id"], :name => "index_allocations_on_practitioner_id"
+
+  create_table "answers", :force => true do |t|
+    t.integer  "question_id"
+    t.integer  "sequence"
+    t.string   "answer"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
   create_table "appointment_statuses", :force => true do |t|
     t.string   "description",     :null => false
@@ -419,6 +429,24 @@ ActiveRecord::Schema.define(:version => 20130805114545) do
   end
 
   add_index "print_templates", ["account_id"], :name => "index_print_templates_on_account_id"
+
+  create_table "questionnaires", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "questions", :force => true do |t|
+    t.integer  "questionnaire_id"
+    t.integer  "sequence"
+    t.string   "question"
+    t.boolean  "options"
+    t.boolean  "multi"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "questions", ["questionnaire_id"], :name => "index_questions_on_questionnaire_id"
 
   create_table "settings", :force => true do |t|
     t.string   "tag"

@@ -1,4 +1,10 @@
 Pccn::Application.routes.draw do
+  resources :answers
+
+  resources :questions
+
+  resources :questionnaires
+
   resources :triggers
 
   resources :trigger_types
